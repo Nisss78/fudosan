@@ -1414,7 +1414,7 @@ function createPartnerCompaniesMessage() {
               },
               {
                 type: 'text',
-                text: 'メリット',
+                text: 'Ciputra Beach Resort',
                 weight: 'bold',
                 margin: 'md',
                 size: 'lg'
@@ -1425,88 +1425,56 @@ function createPartnerCompaniesMessage() {
               },
               {
                 type: 'text',
-                text: '立地の優位性',
+                text: '立地・規模',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
               },
               {
                 type: 'text',
-                text: 'バリデンパサール空港から30分、バリ有数のビーチエリアへのアクセス抜群',
+                text: 'バリ島タバナン地区の海岸沿い80ha・海岸線1.7km',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm'
               },
               {
                 type: 'text',
-                text: 'インフラと景観',
+                text: 'コンセプト',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
               },
               {
                 type: 'text',
-                text: '電力・上下水道・通信等は全て準備済み、美しい海岸線の景観を活かした設計',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: 'ブランドシナジー',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'シプトラ独自のプレミアムブランドと提携提案により安心・信頼性を確保',
+                text: '「luxury beachfront residences」＋持続可能な生活コミュニティ',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm'
               },
               {
                 type: 'text',
-                text: 'プロジェクトの巨大規模',
+                text: '施設構成',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
               },
               {
                 type: 'text',
-                text: '80ha級の海岸沿い大規模開発は他に類を見ず、差別化要素に',
+                text: '225邸のヴィラ、クラブハウス、プール、フィットネス、森林デッキなどを完備',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm'
               },
               {
                 type: 'text',
-                text: '運営ノウハウと供給力',
+                text: 'パートナー運営',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
               },
               {
                 type: 'text',
-                text: 'Rosewood等運営と、ヴィラからアパートメントまで柔軟な供給形式あり',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '法務・行政リスクが小さい',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '上場企業としての透明性と政府との繋がりで信頼性が高い',
+                text: '5つ星ホテル運営者（Rosewood）による第一フェーズが36haで展開中',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm'
