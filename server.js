@@ -17,12 +17,12 @@ const client = new Client(lineConfig);
 
 // リッチメニューのアクションを定義
 const RICH_MENU_ACTIONS = {
-  BALI_INFO: 'テキスト - バリ島紹介',
-  PROPERTY_LIST: 'テキスト - 不動産一覧',
-  RENTAL_SERVICE: 'テキスト - 投資案件',
-  INSPECTION_BOOKING: 'テキスト - 視察予約',
-  PARTNER_COMPANIES: 'テキスト - 提携先企業',
-  COMPANY_INFO: 'テキスト - 会社概要'
+  BALI_INFO: 'バリ島紹介',
+  PROPERTY_LIST: '不動産一覧',
+  RENTAL_SERVICE: '投資案件',
+  INSPECTION_BOOKING: '視察予約',
+  PARTNER_COMPANIES: '提携先企業',
+  COMPANY_INFO: '会社概要'
 };
 
 // Webhookエンドポイント
