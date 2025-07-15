@@ -1569,290 +1569,64 @@ function createCompanyInfoMessage() {
     type: 'flex',
     altText: '会社概要 - PT ARCADIA INDONESIA PROPERTY',
     contents: {
-      type: 'carousel',
-      contents: [
-        {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/F7981E81-6AF9-4104-9CE7-02EEAFACF93A.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '1:1',
-            aspectMode: 'fit'
+      type: 'bubble',
+      hero: {
+        type: 'image',
+        url: `${config.baseUrl}/images/F7981E81-6AF9-4104-9CE7-02EEAFACF93A.jpg?v=${Date.now()}`,
+        size: 'full',
+        aspectRatio: '1:1',
+        aspectMode: 'fit'
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: '企業概要',
+            weight: 'bold',
+            size: 'xl',
+            color: '#1DB446'
           },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '企業概要',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'PT ARCADIA INDONESIA PROPERTY',
-                weight: 'bold',
-                margin: 'md',
-                size: 'lg'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 法人番号：02865343679050000\n• 資本金：1億円（100億ルピア）\n• 代表：I KADEK ARTA YASA',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '所在地',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'JALAN TAMANAN AYU, GANG GIRI ASRI NO.8 RT.00 BENOA KUTA SELATAN KAB BADUNG BALI',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm',
-                color: '#666666'
-              }
-            ]
+          {
+            type: 'text',
+            text: 'PT ARCADIA INDONESIA PROPERTY',
+            weight: 'bold',
+            margin: 'md',
+            size: 'lg'
+          },
+          {
+            type: 'separator',
+            margin: 'md'
+          },
+          {
+            type: 'text',
+            text: '• 法人番号：02865343679050000\n• 資本金：1億円（100億ルピア）\n• 代表：I KADEK ARTA YASA',
+            wrap: true,
+            margin: 'md',
+            size: 'sm'
+          },
+          {
+            type: 'separator',
+            margin: 'md'
+          },
+          {
+            type: 'text',
+            text: '所在地',
+            weight: 'bold',
+            margin: 'md',
+            size: 'md'
+          },
+          {
+            type: 'text',
+            text: 'JALAN TAMANAN AYU, GANG GIRI ASRI NO.8 RT.00 BENOA KUTA SELATAN KAB BADUNG BALI',
+            wrap: true,
+            margin: 'sm',
+            size: 'sm',
+            color: '#666666'
           }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '強み・特色',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '1. 豊富な開発実績',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'インドネシア国内33都市で76以上のプロジェクト（マンション、モール、病院等）',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '2. 巨大な資産規模と安定性',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '土地開発ストック7,000ha超、2024年収益は約625 MUSD、純利益約2.1 TIDR',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '3. 高評価のブランド力',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '海岸リゾート、住宅街から商業拠点まで幅広く、品質と信頼を兼備',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'バリ島開発',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'Ciputra Beach Resort',
-                weight: 'bold',
-                margin: 'md',
-                size: 'lg'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '立地・規模',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'バリ島タバナン地区の海岸沿い80ha・海岸線1.7km',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: 'コンセプト',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '「luxury beachfront residences」＋持続可能な生活コミュニティ',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '施設構成',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '225邸のヴィラ、クラブハウス、プール、フィットネス、森林デッキなどを完備',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: 'パートナー運営',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '5つ星ホテル運営者（Rosewood）による第一フェーズが36haで展開中',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '提携メリット',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: 'ブランドシナジー',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'シプトラ独自のプレミアムブランドと提携提案により安心・信頼性を確保',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: 'プロジェクトの巨大規模',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '80ha級の海岸沿い大規模開発は他に類を見ず、差別化要素に',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '運営ノウハウと供給力',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'Rosewood等運営と、ヴィラからアパートメントまで柔軟な供給形式あり',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '法務・行政リスクが小さい',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '上場企業としての透明性と政府との繋がりで信頼性が高い',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      }
     }
   };
 }
