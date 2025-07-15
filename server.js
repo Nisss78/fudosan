@@ -55,30 +55,47 @@ async function handleTextMessage(event) {
   const { replyToken, message } = event;
   const userMessage = message.text;
   
+  console.log('Processing text message:', userMessage);
+  
   // リッチメニューからのテキストメッセージを処理
   let replyMessage;
   
-  // メッセージの内容をチェック（部分一致にも対応）
-  if (userMessage.includes('バリ島') || userMessage.includes('パリ島')) {
-    replyMessage = createBaliInfoMessage();
-  } else if (userMessage.includes('不動産')) {
-    replyMessage = createPropertyListMessage();
-  } else if (userMessage.includes('投資')) {
-    replyMessage = createRentalServiceMessage();
-  } else if (userMessage.includes('視察') || userMessage.includes('予約')) {
-    replyMessage = createInspectionBookingMessage();
-  } else if (userMessage.includes('提携') || userMessage.includes('企業')) {
-    replyMessage = createPartnerCompaniesMessage();
-  } else if (userMessage.includes('会社') || userMessage.includes('概要')) {
-    replyMessage = createCompanyInfoMessage();
-  } else {
-    replyMessage = {
-      type: 'text',
-      text: `メッセージを受信しました: ${userMessage}`
-    };
+  try {
+    // メッセージの内容をチェック（部分一致にも対応）
+    if (userMessage.includes('バリ島') || userMessage.includes('パリ島')) {
+      console.log('Creating Bali info message');
+      replyMessage = createBaliInfoMessage();
+    } else if (userMessage.includes('不動産')) {
+      console.log('Creating property list message');
+      replyMessage = createPropertyListMessage();
+    } else if (userMessage.includes('投資')) {
+      console.log('Creating rental service message');
+      replyMessage = createRentalServiceMessage();
+    } else if (userMessage.includes('視察') || userMessage.includes('予約')) {
+      console.log('Creating inspection booking message');
+      replyMessage = createInspectionBookingMessage();
+    } else if (userMessage.includes('提携') || userMessage.includes('企業')) {
+      console.log('Creating partner companies message');
+      replyMessage = createPartnerCompaniesMessage();
+    } else if (userMessage.includes('会社') || userMessage.includes('概要')) {
+      console.log('Creating company info message');
+      replyMessage = createCompanyInfoMessage();
+    } else {
+      console.log('Creating default message');
+      replyMessage = {
+        type: 'text',
+        text: `メッセージを受信しました: ${userMessage}`
+      };
+    }
+    
+    console.log('Reply message size:', JSON.stringify(replyMessage).length);
+    await client.replyMessage(replyToken, replyMessage);
+    console.log('Message sent successfully');
+  } catch (error) {
+    console.error('Error in handleTextMessage:', error);
+    console.error('Message that caused error:', JSON.stringify(replyMessage, null, 2));
+    throw error;
   }
-  
-  await client.replyMessage(replyToken, replyMessage);
 }
 
 // ポストバックイベントの処理
@@ -86,47 +103,65 @@ async function handlePostback(event) {
   const { replyToken, postback } = event;
   const data = postback.data;
   
+  console.log('Processing postback:', data);
+  
   let replyMessage;
   
-  switch (data) {
-    case RICH_MENU_ACTIONS.BALI_INFO:
-      replyMessage = createBaliInfoMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.PROPERTY_LIST:
-      replyMessage = createPropertyListMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.RENTAL_SERVICE:
-      replyMessage = createRentalServiceMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.INSPECTION_BOOKING:
-      replyMessage = createInspectionBookingMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.PARTNER_COMPANIES:
-      replyMessage = createPartnerCompaniesMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.COMPANY_INFO:
-      replyMessage = createCompanyInfoMessage();
-      break;
-      
-    default:
-      // 地域選択などの追加データ処理
-      if (data.startsWith('area=')) {
-        const area = data.split('=')[1];
-        replyMessage = await createPropertyDetailMessage(area);
-      } else {
-        replyMessage = {
-          type: 'text',
-          text: '申し訳ございません。リクエストを処理できませんでした。'
-        };
-      }
+  try {
+    switch (data) {
+      case RICH_MENU_ACTIONS.BALI_INFO:
+        console.log('Creating Bali info message');
+        replyMessage = createBaliInfoMessage();
+        break;
+        
+      case RICH_MENU_ACTIONS.PROPERTY_LIST:
+        console.log('Creating property list message');
+        replyMessage = createPropertyListMessage();
+        break;
+        
+      case RICH_MENU_ACTIONS.RENTAL_SERVICE:
+        console.log('Creating rental service message');
+        replyMessage = createRentalServiceMessage();
+        break;
+        
+      case RICH_MENU_ACTIONS.INSPECTION_BOOKING:
+        console.log('Creating inspection booking message');
+        replyMessage = createInspectionBookingMessage();
+        break;
+        
+      case RICH_MENU_ACTIONS.PARTNER_COMPANIES:
+        console.log('Creating partner companies message');
+        replyMessage = createPartnerCompaniesMessage();
+        break;
+        
+      case RICH_MENU_ACTIONS.COMPANY_INFO:
+        console.log('Creating company info message');
+        replyMessage = createCompanyInfoMessage();
+        break;
+        
+      default:
+        // 地域選択などの追加データ処理
+        if (data.startsWith('area=')) {
+          const area = data.split('=')[1];
+          console.log('Creating property detail message for area:', area);
+          replyMessage = await createPropertyDetailMessage(area);
+        } else {
+          console.log('Unknown postback data:', data);
+          replyMessage = {
+            type: 'text',
+            text: '申し訳ございません。リクエストを処理できませんでした。'
+          };
+        }
+    }
+    
+    console.log('Reply message size:', JSON.stringify(replyMessage).length);
+    await client.replyMessage(replyToken, replyMessage);
+    console.log('Message sent successfully');
+  } catch (error) {
+    console.error('Error in handlePostback:', error);
+    console.error('Message that caused error:', JSON.stringify(replyMessage, null, 2));
+    throw error;
   }
-  
-  await client.replyMessage(replyToken, replyMessage);
 }
 
 // バリ島情報のメッセージ作成
