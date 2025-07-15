@@ -1763,7 +1763,7 @@ function createPropertyFlexMessage(property) {
         },
         {
           type: 'text',
-          text: fields.area || 'エリア不明',
+          text: Array.isArray(fields.area) ? fields.area.join(', ') : fields.area || 'エリア不明',
           size: 'sm',
           color: '#666666',
           margin: 'md'
