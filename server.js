@@ -573,7 +573,7 @@ function createPropertyListMessage() {
 function createRentalServiceMessage() {
   return {
     type: 'flex',
-    altText: '投資案件',
+    altText: '投資案件 - バイク・車レンタル事業',
     contents: {
       type: 'carousel',
       contents: [
@@ -592,29 +592,87 @@ function createRentalServiceMessage() {
             contents: [
               {
                 type: 'text',
-                text: 'バイクレンタル',
+                text: 'Yamaha NMAX バイクレンタル事業',
                 weight: 'bold',
-                size: 'xl'
+                size: 'lg',
+                color: '#1DB446'
               },
               {
                 type: 'text',
-                text: 'バリ島を自由に探索',
-                margin: 'md'
+                text: '10台投資案件',
+                margin: 'md',
+                size: 'md',
+                color: '#666666'
               },
               {
                 type: 'separator',
-                margin: 'lg'
+                margin: 'md'
               },
               {
                 type: 'text',
-                text: '料金: 50万ルピア/日〜',
-                margin: 'lg'
+                text: '基本条件',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
               },
               {
                 type: 'text',
-                text: '• 125cc〜250ccバイク\n• ヘルメット付き\n• 24時間サポート',
+                text: '• 台数：10台\n• 1台価格：460,000円\n• 総投資額：4,600,000円\n• レンタル単価：Rp100,000（約980円/日）\n• 稼働日数：年間240日（20日/月）',
                 wrap: true,
-                margin: 'sm'
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: 'バイク事業 収益シミュレーション',
+                weight: 'bold',
+                size: 'lg',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '年間収支',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '• 年間売上：2,352,000円\n• 年間経費：1,000,000円\n  （整備・保険：500,000円）\n  （運営報酬：500,000円）\n• 年間純利益：1,352,000円',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資回収と収益',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '• 投資回収年数：約3.4年\n• 10年後残存価値：1,840,000円\n• 10年間総リターン：10,763,200円\n• 年平均利回り：約23.4%',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
               }
             ]
           }
@@ -634,29 +692,223 @@ function createRentalServiceMessage() {
             contents: [
               {
                 type: 'text',
-                text: 'カーレンタル',
+                text: 'アルファード HEV カーレンタル事業',
                 weight: 'bold',
-                size: 'xl'
+                size: 'lg',
+                color: '#1DB446'
               },
               {
                 type: 'text',
-                text: '快適な移動手段',
-                margin: 'md'
+                text: '高級車レンタル投資案件',
+                margin: 'md',
+                size: 'md',
+                color: '#666666'
               },
               {
                 type: 'separator',
-                margin: 'lg'
+                margin: 'md'
               },
               {
                 type: 'text',
-                text: '料金: 80万ルピア/日〜',
-                margin: 'lg'
+                text: '基本条件',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
               },
               {
                 type: 'text',
-                text: '• エアコン完備\n• ドライバー付きオプション\n• 保険込み',
+                text: '• 車両購入費：1,500万円（新車アルファード HEV）\n• 稼働日数：年間300日\n• 1日あたり貸出価格：20,000円\n• 年間売上：600万円\n• 年間経費：200万円\n• 年間純利益：400万円',
                 wrap: true,
-                margin: 'sm'
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '車事業 投資パターン①',
+                weight: 'bold',
+                size: 'lg',
+                color: '#1DB446'
+              },
+              {
+                type: 'text',
+                text: '1人投資家モデル',
+                margin: 'md',
+                size: 'md',
+                color: '#666666'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資詳細',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '• 初期投資額：1,500万円\n• 年間純利益：400万円（すべて取得）\n• 投資回収年数：3.75年\n• 回収後の利益：2,500万円（6.25年分）\n• 10年後の売却益：600万円\n• 合計リターン：3,100万円',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '実質年利：平均利回り 約20.7%',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md',
+                color: '#1DB446'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '車事業 投資パターン②',
+                weight: 'bold',
+                size: 'lg',
+                color: '#1DB446'
+              },
+              {
+                type: 'text',
+                text: '5人投資家モデル',
+                margin: 'md',
+                size: 'md',
+                color: '#666666'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資詳細（1人あたり）',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '• 初期投資額：300万円\n• 出資比率：投資家グループ75%、運営者25%\n• 年間利益：60万円\n• 投資回収年数：5年\n• 回収後の利益：300万円（5年分）\n• 10年後の売却益シェア：90万円',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '合計リターン：390万円',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '実質年利：平均利回り 約13%',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md',
+                color: '#1DB446'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '投資案件 比較まとめ',
+                weight: 'bold',
+                size: 'lg',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: 'バイク事業（10台）',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資額：460万円\n年平均利回り：23.4%\n投資回収年数：3.4年',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '車事業（1人投資家）',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資額：1,500万円\n年平均利回り：20.7%\n投資回収年数：3.75年',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '車事業（5人投資家）',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資額：300万円/人\n年平均利回り：13%\n投資回収年数：5年',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '詳細はお問い合わせください',
+                wrap: true,
+                margin: 'sm',
+                size: 'xs',
+                color: '#999999',
+                align: 'center'
               }
             ]
           }
