@@ -1336,6 +1336,183 @@ function createPartnerCompaniesMessage() {
               }
             ]
           }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '強み・特色',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '1. 豊富な開発実績',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'インドネシア国内33都市で76以上のプロジェクト（マンション、モール、病院等）',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '2. 巨大な資産規模と安定性',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '土地開発ストック7,000ha超、2024年収益は約625 MUSD、純利益約2.1 TIDR',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '3. 高評価のブランド力',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '海岸リゾート、住宅街から商業拠点まで幅広く、品質と信頼を兼備',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: 'バリ島開発',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'text',
+                text: 'メリット',
+                weight: 'bold',
+                margin: 'md',
+                size: 'lg'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '立地の優位性',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'バリデンパサール空港から30分、バリ有数のビーチエリアへのアクセス抜群',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: 'インフラと景観',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '電力・上下水道・通信等は全て準備済み、美しい海岸線の景観を活かした設計',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: 'ブランドシナジー',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'シプトラ独自のプレミアムブランドと提携提案により安心・信頼性を確保',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: 'プロジェクトの巨大規模',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '80ha級の海岸沿い大規模開発は他に類を見ず、差別化要素に',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '運営ノウハウと供給力',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'Rosewood等運営と、ヴィラからアパートメントまで柔軟な供給形式あり',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '法務・行政リスクが小さい',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '上場企業としての透明性と政府との繋がりで信頼性が高い',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
         }
       ]
     }
