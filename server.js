@@ -1294,6 +1294,48 @@ function createPartnerCompaniesMessage() {
               }
             ]
           }
+        },
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/ciputra.png?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
+          },
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: 'Ciputra Development',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'text',
+                text: 'インドネシア最大級の総合デベロッパー',
+                wrap: true,
+                margin: 'md',
+                size: 'sm',
+                color: '#666666'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '1981年設立、1994年上場。住宅・商業・オフィス・ホテル・ヘルスケア等の総合開発を手がけ、国内33都市で76以上のプロジェクトを展開。「Indonesia\'s Best Real Estate Developer」受賞の実績ある企業です。',
+                wrap: true,
+                margin: 'md',
+                size: 'sm'
+              }
+            ]
+          }
         }
       ]
     }
@@ -1304,7 +1346,7 @@ function createPartnerCompaniesMessage() {
 function createCompanyInfoMessage() {
   return {
     type: 'flex',
-    altText: '会社概要 - Ciputra',
+    altText: '会社概要 - PT ARCADIA INDONESIA PROPERTY',
     contents: {
       type: 'carousel',
       contents: [
@@ -1312,7 +1354,7 @@ function createCompanyInfoMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/ciputra.png?v=${Date.now()}`,
+            url: `${config.baseUrl}/images/F7981E81-6AF9-4104-9CE7-02EEAFACF93A.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -1330,7 +1372,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: 'Ciputra Development',
+                text: 'PT ARCADIA INDONESIA PROPERTY',
                 weight: 'bold',
                 margin: 'md',
                 size: 'lg'
@@ -1341,7 +1383,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '• 設立：1981年（創業者Ir. Ciputra）\n• 1994年にジャカルタ証券取引所上場\n• 事業領域：住宅、商業施設、オフィス、ホテル、ヘルスケアほか',
+                text: '• 法人番号：02865343679050000\n• 資本金：1億円（100億ルピア）\n• 代表：I KADEK ARTA YASA',
                 wrap: true,
                 margin: 'md',
                 size: 'sm'
@@ -1352,14 +1394,14 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '受賞歴',
+                text: '所在地',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
               },
               {
                 type: 'text',
-                text: '「Indonesia\'s Best Real Estate Developer」\n（Euromoney, 2024）など多数受賞',
+                text: 'JALAN TAMANAN AYU, GANG GIRI ASRI NO.8 RT.00 BENOA KUTA SELATAN KAB BADUNG BALI',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm',
