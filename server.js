@@ -1513,6 +1513,82 @@ function createPartnerCompaniesMessage() {
               }
             ]
           }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '提携メリット',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: 'ブランドシナジー',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'シプトラ独自のプレミアムブランドと提携提案により安心・信頼性を確保',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: 'プロジェクトの巨大規模',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '80ha級の海岸沿い大規模開発は他に類を見ず、差別化要素に',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '運営ノウハウと供給力',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'Rosewood等運営と、ヴィラからアパートメントまで柔軟な供給形式あり',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '法務・行政リスクが小さい',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '上場企業としての透明性と政府との繋がりで信頼性が高い',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
         }
       ]
     }
