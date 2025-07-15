@@ -504,67 +504,215 @@ function createPropertyListMessage() {
     type: 'flex',
     altText: '不動産エリア選択',
     contents: {
-      type: 'bubble',
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: '不動産エリア選択',
-            weight: 'bold',
-            size: 'xl'
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '不動産エリア選択',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446',
+                align: 'center'
+              },
+              {
+                type: 'text',
+                text: 'ご希望のエリアをお選びください',
+                margin: 'md',
+                size: 'md',
+                color: '#666666',
+                align: 'center'
+              },
+              {
+                type: 'separator',
+                margin: 'lg'
+              }
+            ]
           },
-          {
-            type: 'text',
-            text: 'ご希望のエリアをお選びください',
-            margin: 'md'
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'md',
+            contents: [
+              {
+                type: 'box',
+                layout: 'horizontal',
+                spacing: 'md',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'primary',
+                    color: '#1DB446',
+                    height: 'sm',
+                    action: {
+                      type: 'postback',
+                      label: 'ウルワッツ',
+                      data: 'area=uluwatu'
+                    }
+                  },
+                  {
+                    type: 'button',
+                    style: 'primary',
+                    color: '#1DB446',
+                    height: 'sm',
+                    action: {
+                      type: 'postback',
+                      label: 'ヌサドゥア',
+                      data: 'area=nusadua'
+                    }
+                  }
+                ]
+              },
+              {
+                type: 'box',
+                layout: 'horizontal',
+                spacing: 'md',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'primary',
+                    color: '#1DB446',
+                    height: 'sm',
+                    action: {
+                      type: 'postback',
+                      label: 'ジンバラン',
+                      data: 'area=jimbaran'
+                    }
+                  },
+                  {
+                    type: 'button',
+                    style: 'primary',
+                    color: '#1DB446',
+                    height: 'sm',
+                    action: {
+                      type: 'postback',
+                      label: 'クタ',
+                      data: 'area=kuta'
+                    }
+                  }
+                ]
+              },
+              {
+                type: 'box',
+                layout: 'horizontal',
+                spacing: 'md',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'primary',
+                    color: '#1DB446',
+                    height: 'sm',
+                    action: {
+                      type: 'postback',
+                      label: 'スミニャック',
+                      data: 'area=seminyak'
+                    }
+                  },
+                  {
+                    type: 'button',
+                    style: 'primary',
+                    color: '#1DB446',
+                    height: 'sm',
+                    action: {
+                      type: 'postback',
+                      label: 'レギャン',
+                      data: 'area=legian'
+                    }
+                  }
+                ]
+              }
+            ]
           }
-        ]
-      },
-      footer: {
-        type: 'box',
-        layout: 'vertical',
-        spacing: 'sm',
-        contents: [
-          {
-            type: 'button',
-            style: 'primary',
-            action: {
-              type: 'postback',
-              label: 'セミニャック',
-              data: 'area=seminyak'
-            }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '追加エリア',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446',
+                align: 'center'
+              },
+              {
+                type: 'text',
+                text: 'その他のエリアもご覧いただけます',
+                margin: 'md',
+                size: 'md',
+                color: '#666666',
+                align: 'center'
+              },
+              {
+                type: 'separator',
+                margin: 'lg'
+              }
+            ]
           },
-          {
-            type: 'button',
-            style: 'primary',
-            action: {
-              type: 'postback',
-              label: 'ヌサドゥア',
-              data: 'area=nusadua'
-            }
-          },
-          {
-            type: 'button',
-            style: 'primary',
-            action: {
-              type: 'postback',
-              label: 'ウブド',
-              data: 'area=ubud'
-            }
-          },
-          {
-            type: 'button',
-            style: 'primary',
-            action: {
-              type: 'postback',
-              label: 'チャングー',
-              data: 'area=canggu'
-            }
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'md',
+            contents: [
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
+                height: 'sm',
+                action: {
+                  type: 'postback',
+                  label: 'チャングー',
+                  data: 'area=canggu'
+                }
+              },
+              {
+                type: 'button',
+                style: 'secondary',
+                height: 'sm',
+                action: {
+                  type: 'postback',
+                  label: 'その他のエリア',
+                  data: 'area=other'
+                }
+              },
+              {
+                type: 'spacer',
+                size: 'sm'
+              },
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'text',
+                    text: 'エリアの特徴',
+                    weight: 'bold',
+                    size: 'sm',
+                    color: '#1DB446',
+                    margin: 'md'
+                  },
+                  {
+                    type: 'text',
+                    text: '• ウルワッツ：断崖絶壁の絶景\n• ヌサドゥア：高級リゾートエリア\n• ジンバラン：シーフード＆夕日\n• クタ：サーフィンの聖地\n• スミニャック：洗練されたビーチタウン\n• レギャン：活気あるビーチエリア\n• チャングー：話題のヒップスポット',
+                    wrap: true,
+                    margin: 'sm',
+                    size: 'xs',
+                    color: '#999999'
+                  }
+                ]
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     }
   };
 }
