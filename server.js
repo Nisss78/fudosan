@@ -176,7 +176,7 @@ function createBaliInfoMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/bali-hero.jpg`,
+            url: `${config.baseUrl}/images/bali-hero.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -704,7 +704,7 @@ function createRentalServiceMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/bike-rental.jpg`,
+            url: `${config.baseUrl}/images/bike-rental.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -804,7 +804,7 @@ function createRentalServiceMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/car-rental.jpg`,
+            url: `${config.baseUrl}/images/car-rental.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -1113,7 +1113,7 @@ function createPartnerCompaniesMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/bank-mandiri.jpg`,
+            url: `${config.baseUrl}/images/bank-mandiri.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -1155,7 +1155,7 @@ function createPartnerCompaniesMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/bank-bri.jpg`,
+            url: `${config.baseUrl}/images/bank-bri.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -1197,7 +1197,7 @@ function createPartnerCompaniesMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/bank-bni.jpg`,
+            url: `${config.baseUrl}/images/bank-bni.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -1239,7 +1239,7 @@ function createPartnerCompaniesMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/bank-btn.jpg`,
+            url: `${config.baseUrl}/images/bank-btn.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
@@ -1342,7 +1342,7 @@ function createCompanyInfoMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/ciputra.png`,
+            url: `${config.baseUrl}/images/ciputra.png?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover'
