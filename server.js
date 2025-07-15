@@ -133,50 +133,367 @@ async function handlePostback(event) {
 function createBaliInfoMessage() {
   return {
     type: 'flex',
-    altText: 'バリ島の紹介',
+    altText: 'バリ島の紹介 - "実利のある楽園"',
     contents: {
-      type: 'bubble',
-      hero: {
-        type: 'image',
-        url: `${config.baseUrl}/images/bali-hero.jpg`,
-        size: 'full',
-        aspectRatio: '20:13',
-        aspectMode: 'cover'
-      },
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: 'バリ島へようこそ',
-            weight: 'bold',
-            size: 'xl'
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/bali-hero.jpg`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
           },
-          {
-            type: 'text',
-            text: 'インドネシアの楽園、バリ島は美しいビーチ、豊かな文化、そして素晴らしい投資機会で知られています。',
-            wrap: true,
-            margin: 'md'
-          },
-          {
-            type: 'separator',
-            margin: 'lg'
-          },
-          {
-            type: 'text',
-            text: '主な魅力:',
-            weight: 'bold',
-            margin: 'lg'
-          },
-          {
-            type: 'text',
-            text: '• 年間を通じて温暖な気候\n• 国際的な観光地\n• 成長する不動産市場\n• 豊かな文化と伝統',
-            wrap: true,
-            margin: 'sm'
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: 'バリ島が"実利のある楽園"と呼ばれる理由',
+                weight: 'bold',
+                size: 'lg',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: 'ただのリゾートではありません。世界中の投資家・富裕層が注目するその背景には、圧倒的な「数字による裏付け」があります。',
+                wrap: true,
+                margin: 'md',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資価値のポイント',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '• 年間1,600万人規模の観光需要市場\n• 急成長するインドネシア経済の中核\n• 政府による観光開発の最優先支援\n• 欧米・中東・ASEAN富裕層の移住先',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '人口と成長性',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: 'インドネシア総人口',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '約2.8億人（世界第4位）',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: 'バリ州人口',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '約440万人（2024年時点）\n2030年には500万人突破予測\n年成長率：1.2〜1.5%',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '平均年齢：約29歳',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '若年層中心の「生産＋消費」両輪成長モデル',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '拡大市場＋若年人口＝経済活性化と長期的需要の保証',
+                wrap: true,
+                margin: 'sm',
+                size: 'xs',
+                color: '#666666',
+                style: 'italic'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: 'GDPと経済ポテンシャル',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: 'インドネシアGDP',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '約1.6兆ドル（世界16位）\n2050年予測：世界第4位（PwC・IMF）',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: 'バリ州GDP（2023年）',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '約116兆ルピア（≒約1.1兆円）',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '産業構造',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '観光業が約54%、現在は不動産・教育・医療分野へも多角化中',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '成長経済 × 多角化＝安定性と投資余地の拡大',
+                wrap: true,
+                margin: 'sm',
+                size: 'xs',
+                color: '#666666',
+                style: 'italic'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '観光市場の回復と拡大',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '訪問外国人観光客数の推移',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '2019年（コロナ前）：約630万人（過去最高）\n2020〜2021年：ほぼゼロ（コロナ影響）\n2023年：約460万人（急回復）\n2024年（予測）：600万人超（8割回復）',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: 'インドネシア国内観光客',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '年間1,000万人超',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '合計観光需要市場',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '約1,600万人規模',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '訪問者＝消費者。バリ島は"人が来続ける市場"であり続ける。',
+                wrap: true,
+                margin: 'sm',
+                size: 'xs',
+                color: '#666666',
+                style: 'italic'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '世界的観光都市 × 安定的な資本流入',
+                weight: 'bold',
+                size: 'lg',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '年間1,000万人超が訪れるアジア最大級の観光島',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '欧米・中東・ASEANの富裕層・ノマド・FIRE層が滞在・移住',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '政府支援',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '政府もインフラ・観光開発を最優先で支援中',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '投資環境の特徴',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '• 年間を通じて温暖な気候\n• 国際的な観光地としての地位\n• 成長する不動産市場\n• 豊かな文化と伝統\n• 英語が通じる環境',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '観光＝消費が絶え間なく流れ込む、資本流入型マーケット',
+                wrap: true,
+                margin: 'sm',
+                size: 'xs',
+                color: '#666666',
+                style: 'italic'
+              }
+            ]
+          }
+        }
+      ]
     }
   };
 }
