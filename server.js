@@ -1356,8 +1356,8 @@ function createCompanyInfoMessage() {
             type: 'image',
             url: `${config.baseUrl}/images/F7981E81-6AF9-4104-9CE7-02EEAFACF93A.jpg?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
+            aspectRatio: '1:1',
+            aspectMode: 'fit'
           },
           body: {
             type: 'box',
