@@ -2,6 +2,7 @@ const express = require('express');
 const { middleware, Client } = require('@line/bot-sdk');
 const config = require('./config');
 const path = require('path');
+const Airtable = require('airtable');
 
 const app = express();
 
@@ -15,6 +16,11 @@ const lineConfig = {
 
 const client = new Client(lineConfig);
 
+// Airtable設定
+const base = new Airtable({
+  apiKey: config.airtableApiKey
+}).base(config.airtableBaseId);
+
 // リッチメニューのアクションを定義
 const RICH_MENU_ACTIONS = {
   BALI_INFO: 'バリ島紹介',
@@ -23,6 +29,18 @@ const RICH_MENU_ACTIONS = {
   INSPECTION_BOOKING: '視察予約',
   PARTNER_COMPANIES: '提携先企業',
   COMPANY_INFO: '会社概要'
+};
+
+// エリアマッピング（日本語 → ローマ字）
+const AREA_MAPPING = {
+  'uluwatu': 'Kuta',
+  'nusadua': 'Nusadua',
+  'jimbaran': 'Jimbaran',
+  'kuta': 'Kuta',
+  'seminyak': 'Seminyak',
+  'legian': 'Legian',
+  'canggu': 'Canggu',
+  'other': 'Other'
 };
 
 // Webhookエンドポイント
@@ -1577,12 +1595,214 @@ function createCompanyInfoMessage() {
 }
 
 // 地域別不動産詳細（Airtable連携予定）
-async function createPropertyDetailMessage(area) {
-  // TODO: Airtable APIと連携して実際のデータを取得
+// Airtableから物件データを取得
+async function getPropertiesFromAirtable(area) {
+  try {
+    const airtableArea = AREA_MAPPING[area] || area;
+    console.log(`Fetching properties for area: ${airtableArea}`);
+    
+    const records = await base('Properties').select({
+      filterByFormula: `{area} = '${airtableArea}'`,
+      maxRecords: 10
+    }).all();
+    
+    console.log(`Found ${records.length} properties for ${airtableArea}`);
+    return records;
+  } catch (error) {
+    console.error('Error fetching properties from Airtable:', error);
+    return [];
+  }
+}
+
+// 物件データからFlex Messageを作成
+function createPropertyFlexMessage(property) {
+  const fields = property.fields;
+  
   return {
-    type: 'text',
-    text: `${area}エリアの物件情報を取得中です。\n\n※現在、データベースとの連携を準備中です。`
+    type: 'bubble',
+    hero: {
+      type: 'image',
+      url: fields.Image && fields.Image.length > 0 ? fields.Image[0].url : `${config.baseUrl}/images/no-image.jpg`,
+      size: 'full',
+      aspectRatio: '20:13',
+      aspectMode: 'cover'
+    },
+    body: {
+      type: 'box',
+      layout: 'vertical',
+      contents: [
+        {
+          type: 'text',
+          text: fields.Name || '物件名未設定',
+          weight: 'bold',
+          size: 'xl',
+          color: '#1DB446'
+        },
+        {
+          type: 'text',
+          text: fields.area || 'エリア不明',
+          size: 'sm',
+          color: '#666666',
+          margin: 'md'
+        },
+        {
+          type: 'separator',
+          margin: 'md'
+        },
+        {
+          type: 'box',
+          layout: 'vertical',
+          margin: 'md',
+          spacing: 'sm',
+          contents: [
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '土地面積',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Land size'] || '未設定',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'sm',
+                  flex: 3
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '建物面積',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Building size'] || '未設定',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'sm',
+                  flex: 3
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '部屋数',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Number of rooms']?.toString() || '未設定',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'sm',
+                  flex: 3
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '価格',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Selling price'] || '未設定',
+                  wrap: true,
+                  color: '#1DB446',
+                  size: 'sm',
+                  flex: 3,
+                  weight: 'bold'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    footer: {
+      type: 'box',
+      layout: 'vertical',
+      spacing: 'sm',
+      contents: [
+        {
+          type: 'button',
+          style: 'primary',
+          color: '#1DB446',
+          action: {
+            type: 'uri',
+            label: 'お問い合わせ',
+            uri: config.googleFormUrl
+          }
+        }
+      ]
+    }
   };
+}
+
+async function createPropertyDetailMessage(area) {
+  try {
+    const properties = await getPropertiesFromAirtable(area);
+    
+    if (properties.length === 0) {
+      return {
+        type: 'text',
+        text: `${area}エリアの物件情報が見つかりませんでした。\n\n※他のエリアもご確認ください。`
+      };
+    }
+    
+    // 物件が1件の場合は単一のバブル、複数の場合はカルーセル
+    if (properties.length === 1) {
+      return {
+        type: 'flex',
+        altText: `${area}エリアの物件情報`,
+        contents: createPropertyFlexMessage(properties[0])
+      };
+    } else {
+      return {
+        type: 'flex',
+        altText: `${area}エリアの物件情報`,
+        contents: {
+          type: 'carousel',
+          contents: properties.map(property => createPropertyFlexMessage(property))
+        }
+      };
+    }
+  } catch (error) {
+    console.error('Error creating property detail message:', error);
+    return {
+      type: 'text',
+      text: `申し訳ございません。${area}エリアの物件情報の取得中にエラーが発生しました。\n\n※しばらくしてからもう一度お試しください。`
+    };
+  }
 }
 
 // サーバー起動

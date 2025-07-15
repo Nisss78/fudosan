@@ -16,11 +16,11 @@
   "description": "A basic LINE Bot implementation using Node.js, Express, and the official LINE Bot SDK.",
   "dependencies": {
     "@line/bot-sdk": "^10.0.0",
+    "airtable": "^0.12.2",
     "dotenv": "^17.2.0",
     "express": "^5.1.0"
   },
   "directories": {
     "test": "tests"
-  },
-  "devDependencies": {}
+  }
 }
