@@ -1666,7 +1666,29 @@ async function getPropertiesFromAirtable(area) {
                 'Building size': 'Building size 100 m²',
                 'Number of rooms': 3,
                 'Selling price': '228,872USD',
-                'Description': 'Beautiful property in Kuta area'
+                'Description': 'Beautiful property in Kuta area',
+                'Image': [
+                  {
+                    url: `${config.baseUrl}/images/property-1.jpg?v=${Date.now()}`
+                  }
+                ]
+              }
+            },
+            {
+              id: 'test2',
+              fields: {
+                'Name': 'Belevue Heritage',
+                'area': 'Kuta',
+                'Land size': 'Land size 120 m²',
+                'Building size': 'Building size 200 m²',
+                'Number of rooms': 2,
+                'Selling price': '242,704USD',
+                'Description': 'Modern villa with pool',
+                'Image': [
+                  {
+                    url: `${config.baseUrl}/images/property-2.jpg?v=${Date.now()}`
+                  }
+                ]
               }
             }
           ];
@@ -1703,11 +1725,27 @@ async function getPropertiesFromAirtable(area) {
 function createPropertyFlexMessage(property) {
   const fields = property.fields;
   
+  // 画像URLの取得（複数の可能性を考慮）
+  let imageUrl = `${config.baseUrl}/images/no-image.jpg`;
+  
+  if (fields.Image && fields.Image.length > 0) {
+    // Airtableの画像形式
+    imageUrl = fields.Image[0].url;
+  } else if (fields.image && fields.image.length > 0) {
+    // 小文字の場合
+    imageUrl = fields.image[0].url;
+  } else if (fields.Images && fields.Images.length > 0) {
+    // 複数形の場合
+    imageUrl = fields.Images[0].url;
+  }
+  
+  console.log(`Using image URL: ${imageUrl}`);
+  
   return {
     type: 'bubble',
     hero: {
       type: 'image',
-      url: fields.Image && fields.Image.length > 0 ? fields.Image[0].url : `${config.baseUrl}/images/no-image.jpg`,
+      url: imageUrl,
       size: 'full',
       aspectRatio: '20:13',
       aspectMode: 'cover'
@@ -1826,6 +1864,28 @@ function createPropertyFlexMessage(property) {
                   size: 'sm',
                   flex: 3,
                   weight: 'bold'
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '説明',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Description'] || '詳細はお問い合わせください',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'xs',
+                  flex: 3
                 }
               ]
             }
