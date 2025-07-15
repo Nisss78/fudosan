@@ -1600,16 +1600,79 @@ async function getPropertiesFromAirtable(area) {
   try {
     const airtableArea = AREA_MAPPING[area] || area;
     console.log(`Fetching properties for area: ${airtableArea}`);
+    console.log(`Using Base ID: ${config.airtableBaseId}`);
+    console.log(`Using API Key: ${config.airtableApiKey ? 'Set' : 'Not set'}`);
     
-    const records = await base('Properties').select({
-      filterByFormula: `{area} = '${airtableArea}'`,
-      maxRecords: 10
-    }).all();
+    // Base IDが正しいか確認するために、まずはベースの基本情報を取得
+    console.log('Testing basic Airtable connection...');
     
-    console.log(`Found ${records.length} properties for ${airtableArea}`);
+    // 一般的なテーブル名を試す（スクリーンショットでは最初のテーブルを使用）
+    const possibleTableNames = ['Table 1', 'Properties', 'tblProperties', 'Real Estate'];
+    let records = [];
+    let successTableName = '';
+    
+    for (const testTableName of possibleTableNames) {
+      try {
+        console.log(`Trying table name: "${testTableName}"`);
+        
+        // フィルタなしで少数のレコードを取得してテーブル構造を確認
+        const testRecords = await base(testTableName).select({
+          maxRecords: 2
+        }).all();
+        
+        console.log(`✓ Success with table: "${testTableName}"`);
+        console.log('Found fields:', Object.keys(testRecords[0]?.fields || {}));
+        console.log('Sample record:', testRecords[0]?.fields);
+        
+        // エリアフィールドの名前を確認
+        const sampleFields = testRecords[0]?.fields || {};
+        const areaFieldName = Object.keys(sampleFields).find(key => 
+          key.toLowerCase().includes('area') || 
+          key.toLowerCase().includes('location') ||
+          key.toLowerCase().includes('エリア')
+        );
+        
+        console.log(`Area field name: ${areaFieldName}`);
+        
+        // エリアでフィルタリング
+        if (areaFieldName) {
+          records = await base(testTableName).select({
+            filterByFormula: `{${areaFieldName}} = '${airtableArea}'`,
+            maxRecords: 10
+          }).all();
+        } else {
+          // フィールド名がわからない場合は全レコードを取得
+          records = await base(testTableName).select({
+            maxRecords: 10
+          }).all();
+        }
+        
+        successTableName = testTableName;
+        break;
+      } catch (tableError) {
+        console.log(`✗ Failed with table "${testTableName}":`, tableError.message);
+        continue;
+      }
+    }
+    
+    if (successTableName) {
+      console.log(`✓ Successfully connected to table: "${successTableName}"`);
+      console.log(`Found ${records.length} properties`);
+      if (records.length > 0) {
+        console.log('Sample property:', records[0].fields);
+      }
+    } else {
+      console.log('✗ Could not connect to any table');
+    }
+    
     return records;
   } catch (error) {
     console.error('Error fetching properties from Airtable:', error);
+    console.error('Error details:', {
+      message: error.message,
+      statusCode: error.statusCode,
+      error: error.error
+    });
     return [];
   }
 }
