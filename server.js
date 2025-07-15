@@ -1874,6 +1874,73 @@ function createPropertyFlexMessage(property) {
               contents: [
                 {
                   type: 'text',
+                  text: 'リビング',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Living room'] || '未設定',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'sm',
+                  flex: 3
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '設備',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: Array.isArray(fields['Facilities']) ? fields['Facilities'].join(', ') : fields['Facilities'] || '未設定',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'sm',
+                  flex: 3
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
+                  text: '利回り',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 2
+                },
+                {
+                  type: 'text',
+                  text: fields['Actual yield'] || '未設定',
+                  wrap: true,
+                  color: '#FF6B35',
+                  size: 'sm',
+                  flex: 3,
+                  weight: 'bold'
+                }
+              ]
+            },
+            {
+              type: 'box',
+              layout: 'baseline',
+              spacing: 'sm',
+              contents: [
+                {
+                  type: 'text',
                   text: '説明',
                   color: '#aaaaaa',
                   size: 'sm',
