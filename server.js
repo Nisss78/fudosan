@@ -661,7 +661,7 @@ function createCompanyInfoMessage() {
             contents: [
               {
                 type: 'text',
-                text: '🏢 企業概要',
+                text: '企業概要',
                 weight: 'bold',
                 size: 'xl',
                 color: '#1DB446'
@@ -690,7 +690,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '🏆 受賞歴',
+                text: '受賞歴',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -714,7 +714,7 @@ function createCompanyInfoMessage() {
             contents: [
               {
                 type: 'text',
-                text: '🌍 強み・特色',
+                text: '強み・特色',
                 weight: 'bold',
                 size: 'xl',
                 color: '#1DB446'
@@ -776,7 +776,7 @@ function createCompanyInfoMessage() {
             contents: [
               {
                 type: 'text',
-                text: '🌴 バリ島開発',
+                text: 'バリ島開発',
                 weight: 'bold',
                 size: 'xl',
                 color: '#1DB446'
@@ -794,7 +794,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '📍 立地・規模',
+                text: '立地・規模',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -808,7 +808,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '🏖️ コンセプト',
+                text: 'コンセプト',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -822,7 +822,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '🏨 施設構成',
+                text: '施設構成',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -836,7 +836,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '⭐ パートナー運営',
+                text: 'パートナー運営',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -859,7 +859,7 @@ function createCompanyInfoMessage() {
             contents: [
               {
                 type: 'text',
-                text: '🤝 提携メリット',
+                text: '提携メリット',
                 weight: 'bold',
                 size: 'xl',
                 color: '#1DB446'
@@ -870,7 +870,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '✨ ブランドシナジー',
+                text: 'ブランドシナジー',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -884,7 +884,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '🏗️ プロジェクトの巨大規模',
+                text: 'プロジェクトの巨大規模',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -898,7 +898,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '💼 運営ノウハウと供給力',
+                text: '運営ノウハウと供給力',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
@@ -912,7 +912,7 @@ function createCompanyInfoMessage() {
               },
               {
                 type: 'text',
-                text: '🛡️ 法務・行政リスクが小さい',
+                text: '法務・行政リスクが小さい',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
