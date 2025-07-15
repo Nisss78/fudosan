@@ -58,36 +58,24 @@ async function handleTextMessage(event) {
   // リッチメニューからのテキストメッセージを処理
   let replyMessage;
   
-  switch (userMessage) {
-    case RICH_MENU_ACTIONS.BALI_INFO:
-      replyMessage = createBaliInfoMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.PROPERTY_LIST:
-      replyMessage = createPropertyListMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.RENTAL_SERVICE:
-      replyMessage = createRentalServiceMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.INSPECTION_BOOKING:
-      replyMessage = createInspectionBookingMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.PARTNER_COMPANIES:
-      replyMessage = createPartnerCompaniesMessage();
-      break;
-      
-    case RICH_MENU_ACTIONS.COMPANY_INFO:
-      replyMessage = createCompanyInfoMessage();
-      break;
-      
-    default:
-      replyMessage = {
-        type: 'text',
-        text: `メッセージを受信しました: ${userMessage}`
-      };
+  // メッセージの内容をチェック（部分一致にも対応）
+  if (userMessage.includes('バリ島') || userMessage.includes('パリ島')) {
+    replyMessage = createBaliInfoMessage();
+  } else if (userMessage.includes('不動産')) {
+    replyMessage = createPropertyListMessage();
+  } else if (userMessage.includes('投資')) {
+    replyMessage = createRentalServiceMessage();
+  } else if (userMessage.includes('視察') || userMessage.includes('予約')) {
+    replyMessage = createInspectionBookingMessage();
+  } else if (userMessage.includes('提携') || userMessage.includes('企業')) {
+    replyMessage = createPartnerCompaniesMessage();
+  } else if (userMessage.includes('会社') || userMessage.includes('概要')) {
+    replyMessage = createCompanyInfoMessage();
+  } else {
+    replyMessage = {
+      type: 'text',
+      text: `メッセージを受信しました: ${userMessage}`
+    };
   }
   
   await client.replyMessage(replyToken, replyMessage);
@@ -654,117 +642,292 @@ function createPartnerCompaniesMessage() {
 function createCompanyInfoMessage() {
   return {
     type: 'flex',
-    altText: '会社概要',
+    altText: '会社概要 - Ciputra',
     contents: {
-      type: 'bubble',
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: '会社概要',
-            weight: 'bold',
-            size: 'xl'
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/ciputra.png`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
           },
-          {
-            type: 'separator',
-            margin: 'lg'
-          },
-          {
+          body: {
             type: 'box',
             layout: 'vertical',
-            margin: 'lg',
-            spacing: 'sm',
             contents: [
               {
-                type: 'box',
-                layout: 'baseline',
-                spacing: 'sm',
-                contents: [
-                  {
-                    type: 'text',
-                    text: '会社名',
-                    color: '#aaaaaa',
-                    size: 'sm',
-                    flex: 2
-                  },
-                  {
-                    type: 'text',
-                    text: 'バリ不動産株式会社',
-                    wrap: true,
-                    size: 'sm',
-                    flex: 5
-                  }
-                ]
+                type: 'text',
+                text: '🏢 企業概要',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
               },
               {
-                type: 'box',
-                layout: 'baseline',
-                spacing: 'sm',
-                contents: [
-                  {
-                    type: 'text',
-                    text: '設立',
-                    color: '#aaaaaa',
-                    size: 'sm',
-                    flex: 2
-                  },
-                  {
-                    type: 'text',
-                    text: '2015年',
-                    wrap: true,
-                    size: 'sm',
-                    flex: 5
-                  }
-                ]
+                type: 'text',
+                text: 'Ciputra Development',
+                weight: 'bold',
+                margin: 'md',
+                size: 'lg'
               },
               {
-                type: 'box',
-                layout: 'baseline',
-                spacing: 'sm',
-                contents: [
-                  {
-                    type: 'text',
-                    text: '事業内容',
-                    color: '#aaaaaa',
-                    size: 'sm',
-                    flex: 2
-                  },
-                  {
-                    type: 'text',
-                    text: 'バリ島不動産の売買・賃貸・管理',
-                    wrap: true,
-                    size: 'sm',
-                    flex: 5
-                  }
-                ]
+                type: 'separator',
+                margin: 'md'
               },
               {
-                type: 'box',
-                layout: 'baseline',
-                spacing: 'sm',
-                contents: [
-                  {
-                    type: 'text',
-                    text: '所在地',
-                    color: '#aaaaaa',
-                    size: 'sm',
-                    flex: 2
-                  },
-                  {
-                    type: 'text',
-                    text: 'Jl. Sunset Road No.123, Seminyak, Bali',
-                    wrap: true,
-                    size: 'sm',
-                    flex: 5
-                  }
-                ]
+                type: 'text',
+                text: '• 設立：1981年（創業者Ir. Ciputra）\n• 1994年にジャカルタ証券取引所上場\n• 事業領域：住宅、商業施設、オフィス、ホテル、ヘルスケアほか',
+                wrap: true,
+                margin: 'md',
+                size: 'sm'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '🏆 受賞歴',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '「Indonesia\'s Best Real Estate Developer」\n（Euromoney, 2024）など多数受賞',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm',
+                color: '#666666'
               }
             ]
           }
-        ]
-      }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '🌍 強み・特色',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '1. 豊富な開発実績',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'インドネシア国内33都市で76以上のプロジェクト（マンション、モール、病院等）',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '2. 巨大な資産規模と安定性',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '土地開発ストック7,000ha超、2024年収益は約625 MUSD、純利益約2.1 TIDR',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '3. 高評価のブランド力',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '海岸リゾート、住宅街から商業拠点まで幅広く、品質と信頼を兼備',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '🌴 バリ島開発',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'text',
+                text: 'Ciputra Beach Resort',
+                weight: 'bold',
+                margin: 'md',
+                size: 'lg'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '📍 立地・規模',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'バリ島タバナン地区の海岸沿い80ha・海岸線1.7km',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '🏖️ コンセプト',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '「luxury beachfront residences」＋持続可能な生活コミュニティ',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '🏨 施設構成',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '225邸のヴィラ、クラブハウス、プール、フィットネス、森林デッキなどを完備',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '⭐ パートナー運営',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '5つ星ホテル運営者（Rosewood）による第一フェーズが36haで展開中',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: '🤝 提携メリット',
+                weight: 'bold',
+                size: 'xl',
+                color: '#1DB446'
+              },
+              {
+                type: 'separator',
+                margin: 'md'
+              },
+              {
+                type: 'text',
+                text: '✨ ブランドシナジー',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'シプトラ独自のプレミアムブランドと提携提案により安心・信頼性を確保',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '🏗️ プロジェクトの巨大規模',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '80ha級の海岸沿い大規模開発は他に類を見ず、差別化要素に',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '💼 運営ノウハウと供給力',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: 'Rosewood等運営と、ヴィラからアパートメントまで柔軟な供給形式あり',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              },
+              {
+                type: 'text',
+                text: '🛡️ 法務・行政リスクが小さい',
+                weight: 'bold',
+                margin: 'md',
+                size: 'md'
+              },
+              {
+                type: 'text',
+                text: '上場企業としての透明性と政府との繋がりで信頼性が高い',
+                wrap: true,
+                margin: 'sm',
+                size: 'sm'
+              }
+            ]
+          }
+        }
+      ]
     }
   };
 }
