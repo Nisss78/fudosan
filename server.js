@@ -1606,8 +1606,8 @@ async function getPropertiesFromAirtable(area) {
     // Base IDが正しいか確認するために、まずはベースの基本情報を取得
     console.log('Testing basic Airtable connection...');
     
-    // 一般的なテーブル名を試す（スクリーンショットでは最初のテーブルを使用）
-    const possibleTableNames = ['Table 1', 'Properties', 'tblProperties', 'Real Estate'];
+    // スクリーンショットから確認したテーブル名
+    const possibleTableNames = ['Table 1'];
     let records = [];
     let successTableName = '';
     
@@ -1624,27 +1624,27 @@ async function getPropertiesFromAirtable(area) {
         console.log('Found fields:', Object.keys(testRecords[0]?.fields || {}));
         console.log('Sample record:', testRecords[0]?.fields);
         
-        // エリアフィールドの名前を確認
-        const sampleFields = testRecords[0]?.fields || {};
-        const areaFieldName = Object.keys(sampleFields).find(key => 
-          key.toLowerCase().includes('area') || 
-          key.toLowerCase().includes('location') ||
-          key.toLowerCase().includes('エリア')
-        );
-        
-        console.log(`Area field name: ${areaFieldName}`);
+        // スクリーンショットから確認したフィールド名を使用
+        const areaFieldName = 'area';
+        console.log(`Using area field name: ${areaFieldName}`);
+        console.log(`Looking for area value: ${airtableArea}`);
         
         // エリアでフィルタリング
-        if (areaFieldName) {
-          records = await base(testTableName).select({
-            filterByFormula: `{${areaFieldName}} = '${airtableArea}'`,
+        records = await base(testTableName).select({
+          filterByFormula: `{${areaFieldName}} = '${airtableArea}'`,
+          maxRecords: 10
+        }).all();
+        
+        console.log(`Filter formula: {${areaFieldName}} = '${airtableArea}'`);
+        console.log(`Records found: ${records.length}`);
+        
+        // もし見つからない場合は、全レコードを取得してデバッグ
+        if (records.length === 0) {
+          console.log('No records found, fetching all records for debugging...');
+          const allRecords = await base(testTableName).select({
             maxRecords: 10
           }).all();
-        } else {
-          // フィールド名がわからない場合は全レコードを取得
-          records = await base(testTableName).select({
-            maxRecords: 10
-          }).all();
+          console.log('All area values in database:', allRecords.map(r => r.fields.area));
         }
         
         successTableName = testTableName;
