@@ -1276,54 +1276,6 @@ function createPartnerCompaniesMessage() {
               }
             ]
           }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '💼 その他のサービス',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: '金融機関以外のサポート',
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 法律事務所\n• 不動産管理会社\n• 建設会社\n• 会計事務所\n• 投資コンサルティング',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              },
-              {
-                type: 'separator',
-                margin: 'lg'
-              },
-              {
-                type: 'text',
-                text: '詳細はお問い合わせください',
-                wrap: true,
-                margin: 'md',
-                size: 'xs',
-                color: '#999999',
-                align: 'center'
-              }
-            ]
-          }
         }
       ]
     }
