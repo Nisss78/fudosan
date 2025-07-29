@@ -40,6 +40,7 @@ const AREA_MAPPING = {
   'seminyak': 'Seminyak',
   'legian': 'Legian',
   'canggu': 'Canggu',
+  'badung': 'Badung',
   'other': 'Other'
 };
 
@@ -692,6 +693,24 @@ function createPropertyListMessage() {
                   data: 'area=canggu'
                 }
               },
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
+                height: 'sm',
+                action: {
+                  type: 'postback',
+                  label: 'バドゥン',
+                  data: 'area=badung'
+                }
+              }
+            ]
+          },
+          {
+            type: 'box',
+            layout: 'horizontal',
+            spacing: 'sm',
+            contents: [
               {
                 type: 'button',
                 style: 'secondary',
