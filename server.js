@@ -34,6 +34,7 @@ const RICH_MENU_ACTIONS = {
 // エリアマッピング（日本語 → ローマ字）
 const AREA_MAPPING = {
   'uluwatu': 'Kuta',
+  'ungasan': 'Ungasan',
   'nusadua': 'Nusadua',
   'jimbaran': 'Jimbaran',
   'kuta': 'Kuta',
@@ -613,8 +614,8 @@ function createPropertyListMessage() {
                 height: 'sm',
                 action: {
                   type: 'postback',
-                  label: 'ヌサドゥア',
-                  data: 'area=nusadua'
+                  label: 'ウンガサン',
+                  data: 'area=ungasan'
                 }
               }
             ]
@@ -624,6 +625,17 @@ function createPropertyListMessage() {
             layout: 'horizontal',
             spacing: 'sm',
             contents: [
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
+                height: 'sm',
+                action: {
+                  type: 'postback',
+                  label: 'ヌサドゥア',
+                  data: 'area=nusadua'
+                }
+              },
               {
                 type: 'button',
                 style: 'primary',
@@ -634,7 +646,14 @@ function createPropertyListMessage() {
                   label: 'ジンバラン',
                   data: 'area=jimbaran'
                 }
-              },
+              }
+            ]
+          },
+          {
+            type: 'box',
+            layout: 'horizontal',
+            spacing: 'sm',
+            contents: [
               {
                 type: 'button',
                 style: 'primary',
@@ -645,14 +664,7 @@ function createPropertyListMessage() {
                   label: 'クタ',
                   data: 'area=kuta'
                 }
-              }
-            ]
-          },
-          {
-            type: 'box',
-            layout: 'horizontal',
-            spacing: 'sm',
-            contents: [
+              },
               {
                 type: 'button',
                 style: 'primary',
@@ -663,7 +675,14 @@ function createPropertyListMessage() {
                   label: 'スミニャック',
                   data: 'area=seminyak'
                 }
-              },
+              }
+            ]
+          },
+          {
+            type: 'box',
+            layout: 'horizontal',
+            spacing: 'sm',
+            contents: [
               {
                 type: 'button',
                 style: 'primary',
@@ -674,14 +693,7 @@ function createPropertyListMessage() {
                   label: 'レギャン',
                   data: 'area=legian'
                 }
-              }
-            ]
-          },
-          {
-            type: 'box',
-            layout: 'horizontal',
-            spacing: 'sm',
-            contents: [
+              },
               {
                 type: 'button',
                 style: 'primary',
@@ -692,17 +704,6 @@ function createPropertyListMessage() {
                   label: 'チャングー',
                   data: 'area=canggu'
                 }
-              },
-              {
-                type: 'button',
-                style: 'primary',
-                color: '#1DB446',
-                height: 'sm',
-                action: {
-                  type: 'postback',
-                  label: 'バドゥン',
-                  data: 'area=badung'
-                }
               }
             ]
           },
@@ -713,7 +714,19 @@ function createPropertyListMessage() {
             contents: [
               {
                 type: 'button',
-                style: 'secondary',
+                style: 'primary',
+                color: '#1DB446',
+                height: 'sm',
+                action: {
+                  type: 'postback',
+                  label: 'バドゥン',
+                  data: 'area=badung'
+                }
+              },
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
                 height: 'sm',
                 action: {
                   type: 'postback',
