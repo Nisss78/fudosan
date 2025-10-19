@@ -1698,14 +1698,26 @@ async function getPropertiesFromAirtable(area) {
         const areaFieldName = 'area';
         console.log(`Using area field name: ${areaFieldName}`);
         console.log(`Looking for area value: ${airtableArea}`);
-        
+
         // エリアでフィルタリング
+        let filterFormula;
+        if (airtableArea === 'Other') {
+          // 「その他」の場合は、指定した9個のエリア以外をすべて取得
+          const specifiedAreas = ['Kuta', 'Ungasan', 'Nusadua', 'Jimbaran', 'Seminyak', 'Legian', 'Canggu', 'Badung'];
+          const orConditions = specifiedAreas.map(a => `{${areaFieldName}} = '${a}'`).join(', ');
+          filterFormula = `NOT(OR(${orConditions}))`;
+          console.log(`Filter formula for "Other": ${filterFormula}`);
+        } else {
+          // 通常のエリア指定の場合
+          filterFormula = `{${areaFieldName}} = '${airtableArea}'`;
+          console.log(`Filter formula: ${filterFormula}`);
+        }
+
         records = await base(testTableName).select({
-          filterByFormula: `{${areaFieldName}} = '${airtableArea}'`,
+          filterByFormula: filterFormula,
           maxRecords: 10
         }).all();
-        
-        console.log(`Filter formula: {${areaFieldName}} = '${airtableArea}'`);
+
         console.log(`Records found: ${records.length}`);
         
         // もし見つからない場合は、全レコードを取得してデバッグ
