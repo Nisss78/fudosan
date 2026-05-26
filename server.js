@@ -23,12 +23,27 @@ const base = new Airtable({
 
 // リッチメニューのアクションを定義
 const RICH_MENU_ACTIONS = {
-  BALI_INFO: 'バリ島紹介',
-  PROPERTY_LIST: '不動産一覧',
-  RENTAL_SERVICE: '投資案件',
+  // トップレベル（リッチメニュー本体から発火）
+  INDONESIA_BALI_MENU: 'インドネシア・バリ島紹介',
+  PROPERTY_MENU: '不動産紹介',
   INSPECTION_BOOKING: '視察予約',
-  PARTNER_COMPANIES: '提携先企業',
-  COMPANY_INFO: '会社概要'
+  PARTNER_COMPANIES: '提携先',
+  COMPANY_INFO: '会社概要',
+  CEO_INFO: '社長紹介',
+
+  // サブメニュー（インドネシア・バリ島紹介から発火）
+  INDONESIA_INFO: 'インドネシアについて',
+  BALI_INFO: 'バリ島について',
+  GROWTH_POTENTIAL: '伸び代について',
+  LAW_INFO: '法律について',
+
+  // サブメニュー（不動産紹介から発火）
+  AREA_INFO: 'エリアについて',
+  BALI_PROPERTY_INFO: 'バリ島不動産について',
+  OWNERSHIP_INFO: '所有権について',
+  PURCHASE_METHOD: '購入方法について',
+  PAYMENT_METHOD: '支払い方法について',
+  LOAN_CONSULT: 'ローン相談'
 };
 
 // エリアマッピング（日本語 → ローマ字）
@@ -74,40 +89,70 @@ app.post('/webhook', middleware(lineConfig), async (req, res) => {
 async function handleTextMessage(event) {
   const { replyToken, message } = event;
   const userMessage = message.text;
-  
+
   console.log('Processing text message:', userMessage);
-  
-  // リッチメニューからのテキストメッセージを処理
+
   let replyMessage;
-  
+
   try {
-    // メッセージの内容をチェック（部分一致にも対応）
-    if (userMessage.includes('バリ島') || userMessage.includes('パリ島')) {
-      console.log('Creating Bali info message');
-      replyMessage = createBaliInfoMessage();
-    } else if (userMessage.includes('不動産')) {
-      console.log('Creating property list message');
+    // 個別相談キーワード（最優先）
+    if (userMessage.includes('個別相談') || userMessage.includes('相談')) {
+      console.log('Creating consultation message');
+      replyMessage = createConsultationMessage();
+    }
+    // インドネシア・バリ島紹介のトップメニュー
+    else if (userMessage.includes('インドネシア・バリ') || userMessage === 'インドネシア・バリ島紹介') {
+      replyMessage = createIndonesiaBaliMenuMessage();
+    }
+    // サブメニュー内の各項目（キーワード一致）
+    else if (userMessage.includes('伸び代')) {
+      replyMessage = createGrowthPotentialMessage();
+    } else if (userMessage.includes('法律')) {
+      replyMessage = createLawMessage();
+    } else if (userMessage.includes('所有権')) {
+      replyMessage = createOwnershipMessage();
+    } else if (userMessage.includes('購入方法') || userMessage.includes('購入の流れ')) {
+      replyMessage = createPurchaseMethodMessage();
+    } else if (userMessage.includes('支払い')) {
+      replyMessage = createPaymentMethodMessage();
+    } else if (userMessage.includes('ローン') || userMessage.includes('融資')) {
+      replyMessage = createLoanConsultMessage();
+    } else if (userMessage.includes('エリア')) {
       replyMessage = createPropertyListMessage();
-    } else if (userMessage.includes('投資')) {
-      console.log('Creating rental service message');
-      replyMessage = createRentalServiceMessage();
-    } else if (userMessage.includes('視察') || userMessage.includes('予約')) {
-      console.log('Creating inspection booking message');
+    } else if (userMessage.includes('社長')) {
+      replyMessage = createCEOInfoMessage();
+    }
+    // インドネシア（バリより前にチェック / バリ島と被らないように単独語のとき）
+    else if (userMessage.includes('インドネシア') && !userMessage.includes('バリ')) {
+      replyMessage = createIndonesiaInfoMessage();
+    }
+    // バリ島 → 単独だとバリ島について（紹介ページ）
+    else if (userMessage.includes('バリ島') || userMessage.includes('パリ島')) {
+      replyMessage = createBaliInfoMessage();
+    }
+    // 不動産紹介トップメニュー
+    else if (userMessage.includes('不動産')) {
+      replyMessage = createPropertyMenuMessage();
+    }
+    // 視察予約
+    else if (userMessage.includes('視察') || userMessage.includes('予約')) {
       replyMessage = createInspectionBookingMessage();
-    } else if (userMessage.includes('提携') || userMessage.includes('企業')) {
-      console.log('Creating partner companies message');
+    }
+    // 提携先
+    else if (userMessage.includes('提携') || userMessage.includes('企業')) {
       replyMessage = createPartnerCompaniesMessage();
-    } else if (userMessage.includes('会社') || userMessage.includes('概要')) {
-      console.log('Creating company info message');
+    }
+    // 会社概要
+    else if (userMessage.includes('会社') || userMessage.includes('概要')) {
       replyMessage = createCompanyInfoMessage();
     } else {
       console.log('Creating default message');
       replyMessage = {
         type: 'text',
-        text: `メッセージを受信しました: ${userMessage}`
+        text: `メッセージを受信しました: ${userMessage}\n\nリッチメニューからご希望の項目をお選びください。`
       };
     }
-    
+
     console.log('Reply message size:', JSON.stringify(replyMessage).length);
     await client.replyMessage(replyToken, replyMessage);
     console.log('Message sent successfully');
@@ -122,49 +167,87 @@ async function handleTextMessage(event) {
 async function handlePostback(event) {
   const { replyToken, postback } = event;
   const data = postback.data;
-  
+
   console.log('Processing postback:', data);
-  
+
   let replyMessage;
-  
+
   try {
     switch (data) {
-      case RICH_MENU_ACTIONS.BALI_INFO:
-        console.log('Creating Bali info message');
-        replyMessage = createBaliInfoMessage();
+      // ========== トップメニュー（リッチメニューから直接） ==========
+      case RICH_MENU_ACTIONS.INDONESIA_BALI_MENU:
+        replyMessage = createIndonesiaBaliMenuMessage();
         break;
-        
-      case RICH_MENU_ACTIONS.PROPERTY_LIST:
-        console.log('Creating property list message');
-        replyMessage = createPropertyListMessage();
+
+      case RICH_MENU_ACTIONS.PROPERTY_MENU:
+        replyMessage = createPropertyMenuMessage();
         break;
-        
-      case RICH_MENU_ACTIONS.RENTAL_SERVICE:
-        console.log('Creating rental service message');
-        replyMessage = createRentalServiceMessage();
-        break;
-        
+
       case RICH_MENU_ACTIONS.INSPECTION_BOOKING:
-        console.log('Creating inspection booking message');
         replyMessage = createInspectionBookingMessage();
         break;
-        
+
       case RICH_MENU_ACTIONS.PARTNER_COMPANIES:
-        console.log('Creating partner companies message');
         replyMessage = createPartnerCompaniesMessage();
         break;
-        
+
       case RICH_MENU_ACTIONS.COMPANY_INFO:
-        console.log('Creating company info message');
         replyMessage = createCompanyInfoMessage();
         break;
-        
+
+      case RICH_MENU_ACTIONS.CEO_INFO:
+        replyMessage = createCEOInfoMessage();
+        break;
+
+      // ========== インドネシア・バリ島サブメニュー ==========
+      case RICH_MENU_ACTIONS.INDONESIA_INFO:
+        replyMessage = createIndonesiaInfoMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.BALI_INFO:
+        replyMessage = createBaliInfoMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.GROWTH_POTENTIAL:
+        replyMessage = createGrowthPotentialMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.LAW_INFO:
+        replyMessage = createLawMessage();
+        break;
+
+      // ========== 不動産紹介サブメニュー ==========
+      case RICH_MENU_ACTIONS.AREA_INFO:
+        replyMessage = createPropertyListMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.BALI_PROPERTY_INFO:
+        replyMessage = createBaliPropertyMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.OWNERSHIP_INFO:
+        replyMessage = createOwnershipMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.PURCHASE_METHOD:
+        replyMessage = createPurchaseMethodMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.PAYMENT_METHOD:
+        replyMessage = createPaymentMethodMessage();
+        break;
+
+      case RICH_MENU_ACTIONS.LOAN_CONSULT:
+        replyMessage = createLoanConsultMessage();
+        break;
+
       default:
-        // 地域選択などの追加データ処理
+        // 地域選択
         if (data.startsWith('area=')) {
           const area = data.split('=')[1];
-          console.log('Creating property detail message for area:', area);
           replyMessage = await createPropertyDetailMessage(area);
+        } else if (data === 'consultation' || data === '個別相談') {
+          replyMessage = createConsultationMessage();
         } else {
           console.log('Unknown postback data:', data);
           replyMessage = {
@@ -173,7 +256,7 @@ async function handlePostback(event) {
           };
         }
     }
-    
+
     console.log('Reply message size:', JSON.stringify(replyMessage).length);
     await client.replyMessage(replyToken, replyMessage);
     console.log('Message sent successfully');
@@ -742,351 +825,628 @@ function createPropertyListMessage() {
   };
 }
 
-// 投資案件のメッセージ作成（車・バイクのレンタル）
-function createRentalServiceMessage() {
+// =============================================================
+// 共通ヘルパー：個別相談誘導フッター
+// =============================================================
+function consultFooter(label = '個別相談を希望する') {
+  return {
+    type: 'box',
+    layout: 'vertical',
+    spacing: 'sm',
+    contents: [
+      {
+        type: 'button',
+        style: 'primary',
+        color: '#1DB446',
+        action: {
+          type: 'postback',
+          label: label,
+          data: 'consultation',
+          displayText: '個別相談'
+        }
+      }
+    ]
+  };
+}
+
+// =============================================================
+// サブメニュー①：インドネシア・バリ島紹介
+// =============================================================
+function createIndonesiaBaliMenuMessage() {
   return {
     type: 'flex',
-    altText: '投資案件 - バイク・車レンタル事業',
+    altText: 'インドネシア・バリ島紹介',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'md',
+        contents: [
+          { type: 'text', text: 'インドネシア・バリ島紹介', weight: 'bold', size: 'xl', color: '#1DB446' },
+          { type: 'text', text: '気になる項目をタップしてください', size: 'sm', color: '#666666', wrap: true },
+          { type: 'separator', margin: 'md' },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: 'インドネシアについて', data: RICH_MENU_ACTIONS.INDONESIA_INFO, displayText: 'インドネシアについて' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: 'バリ島について', data: RICH_MENU_ACTIONS.BALI_INFO, displayText: 'バリ島について' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: '伸び代について', data: RICH_MENU_ACTIONS.GROWTH_POTENTIAL, displayText: '伸び代について' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: '法律について', data: RICH_MENU_ACTIONS.LAW_INFO, displayText: '法律について' } }
+        ]
+      }
+    }
+  };
+}
+
+// =============================================================
+// サブメニュー②：不動産紹介
+// =============================================================
+function createPropertyMenuMessage() {
+  return {
+    type: 'flex',
+    altText: '不動産紹介',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'md',
+        contents: [
+          { type: 'text', text: '不動産紹介', weight: 'bold', size: 'xl', color: '#1DB446' },
+          { type: 'text', text: '気になる項目をタップしてください', size: 'sm', color: '#666666', wrap: true },
+          { type: 'separator', margin: 'md' },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: 'エリアについて', data: RICH_MENU_ACTIONS.AREA_INFO, displayText: 'エリアについて' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: 'バリ島不動産について', data: RICH_MENU_ACTIONS.BALI_PROPERTY_INFO, displayText: 'バリ島不動産について' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: '所有権について', data: RICH_MENU_ACTIONS.OWNERSHIP_INFO, displayText: '所有権について' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: '購入方法について', data: RICH_MENU_ACTIONS.PURCHASE_METHOD, displayText: '購入方法について' } },
+          { type: 'button', style: 'secondary', action: { type: 'postback', label: '支払い方法について', data: RICH_MENU_ACTIONS.PAYMENT_METHOD, displayText: '支払い方法について' } }
+        ]
+      }
+    }
+  };
+}
+
+// =============================================================
+// インドネシアについて
+// =============================================================
+function createIndonesiaInfoMessage() {
+  return {
+    type: 'flex',
+    altText: 'インドネシアについて',
     contents: {
       type: 'carousel',
       contents: [
         {
           type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/bike-rental.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'インドネシア基本情報', weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '世界第4位の人口大国', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '• 総人口：約2.8億人\n• 平均年齢：約30歳（日本は約49歳）\n• これから家を買う・借りる世代が爆発的に増加', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '急成長する経済', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '• GDP：約1.6兆ドル（世界16位）\n• ジャカルタを中心に中間層が急拡大\n• 「貸し相手」に困らないエネルギーある市場', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '日本人が使える権利は2つだけ', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '①ハック・パカイ（使用権）', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '政府公認の使用権。主にジャカルタ高級コンドミニアム向け。最長80年（30+20+30）保有可能。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '②ハック・セワ（賃借権/リースホールド）', weight: 'bold', margin: 'md' },
+              { type: 'text', text: 'バリ島ヴィラ投資で最もよく使われる方法。25〜30年で契約。手続きがシンプル。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '⚠ ノミニー契約は違法', weight: 'bold', size: 'sm', color: '#E03131', margin: 'md' },
+              { type: 'text', text: '現地人から名義を借りる契約は違法。物件没収のリスクがあります。', wrap: true, size: 'xs', margin: 'sm', color: '#666666' }
+            ]
           },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'Yamaha NMAX バイクレンタル事業',
-                weight: 'bold',
-                size: 'lg',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: '10台投資案件',
-                margin: 'md',
-                size: 'md',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '基本条件',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 台数：10台\n• 1台価格：460,000円\n• 総投資額：4,600,000円\n• レンタル単価：Rp100,000（約980円/日）\n• 稼働日数：年間240日（20日/月）',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'バイク事業 収益シミュレーション',
-                weight: 'bold',
-                size: 'lg',
-                color: '#1DB446'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '年間収支',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 年間売上：2,352,000円\n• 年間経費：1,000,000円\n  （整備・保険：500,000円）\n  （運営報酬：500,000円）\n• 年間純利益：1,352,000円',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '投資回収と収益',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 投資回収年数：約3.4年\n• 10年後残存価値：1,840,000円\n• 10年間総リターン：10,763,200円\n• 年平均利回り：約23.4%',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/car-rental.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
-          },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'アルファード HEV カーレンタル事業',
-                weight: 'bold',
-                size: 'lg',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: '高級車レンタル投資案件',
-                margin: 'md',
-                size: 'md',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '基本条件',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 車両購入費：1,500万円（新車アルファード HEV）\n• 稼働日数：年間300日\n• 1日あたり貸出価格：20,000円\n• 年間売上：600万円\n• 年間経費：200万円\n• 年間純利益：400万円',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '車事業 投資パターン①',
-                weight: 'bold',
-                size: 'lg',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: '1人投資家モデル',
-                margin: 'md',
-                size: 'md',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '投資詳細',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 初期投資額：1,500万円\n• 年間純利益：400万円（すべて取得）\n• 投資回収年数：3.75年\n• 回収後の利益：2,500万円（6.25年分）\n• 10年後の売却益：600万円\n• 合計リターン：3,100万円',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '実質年利：平均利回り 約20.7%',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md',
-                color: '#1DB446'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '車事業 投資パターン②',
-                weight: 'bold',
-                size: 'lg',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: '5人投資家モデル',
-                margin: 'md',
-                size: 'md',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '投資詳細（1人あたり）',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '• 初期投資額：300万円\n• 出資比率：投資家グループ75%、運営者25%\n• 年間利益：60万円\n• 投資回収年数：5年\n• 回収後の利益：300万円（5年分）\n• 10年後の売却益シェア：90万円',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '合計リターン：390万円',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '実質年利：平均利回り 約13%',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md',
-                color: '#1DB446'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '投資案件 比較まとめ',
-                weight: 'bold',
-                size: 'lg',
-                color: '#1DB446'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: 'バイク事業（10台）',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '投資額：460万円\n年平均利回り：23.4%\n投資回収年数：3.4年',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '車事業（1人投資家）',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '投資額：1,500万円\n年平均利回り：20.7%\n投資回収年数：3.75年',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '車事業（5人投資家）',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '投資額：300万円/人\n年平均利回り：13%\n投資回収年数：5年',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '詳細はお問い合わせください',
-                wrap: true,
-                margin: 'sm',
-                size: 'xs',
-                color: '#999999',
-                align: 'center'
-              }
-            ]
-          }
+          footer: consultFooter('プロに無料相談する')
         }
       ]
+    }
+  };
+}
+
+// =============================================================
+// 伸び代について
+// =============================================================
+function createGrowthPotentialMessage() {
+  return {
+    type: 'flex',
+    altText: 'インドネシア「異次元の伸び代」',
+    contents: {
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '①人口ボーナスの爆発力', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '📊 平均年齢「約30歳」', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '日本（約49歳）と比べ圧倒的に若い国', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: '📊 2030〜2040年がピーク', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '働く現役世代の割合が爆発的に増加。一番お金を使う世代が数千万人規模で増える。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '②毎年5%以上成長する経済', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '日本が「ゼロ成長」と言われる中、インドネシア経済（GDP）は毎年5%前後のペースで成長し続けています。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'text', text: '🎯 黄金のインドネシア2045', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '建国100周年に向けた国家ビジョン。世界トップ5の経済大国入りを目指す国策。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '③観光＆インフラの国家投資', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '• 道路の拡張\n• 新空港の整備\n• デジタルノマド向けビザ緩和\n• 富裕層を呼び込む国策', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '国策として「世界からのお金と人」を吸い上げる構造ができている。これが本当の強み。', wrap: true, size: 'sm', margin: 'md' }
+            ]
+          },
+          footer: consultFooter('シミュレーション相談する')
+        }
+      ]
+    }
+  };
+}
+
+// =============================================================
+// 法律について
+// =============================================================
+function createLawMessage() {
+  return {
+    type: 'flex',
+    altText: 'インドネシア不動産の法律ルール',
+    contents: {
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '失敗しない3大ルール', weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'text', text: '日本の常識のまま買うと大失敗します', wrap: true, size: 'sm', color: '#666666', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ルール①', weight: 'bold', margin: 'md', color: '#1DB446' },
+              { type: 'text', text: '外国人は土地の「所有権」を持てない', weight: 'bold', wrap: true, margin: 'sm' },
+              { type: 'text', text: 'ノミニー契約（現地人名義借り）は完全に違法。トラブル時にお金は1円も戻りません。', wrap: true, size: 'sm', margin: 'sm', color: '#666666' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'ルール②', weight: 'bold', margin: 'md', color: '#1DB446' },
+              { type: 'text', text: 'リースホールド（賃借権）が唯一の正解', weight: 'bold', wrap: true, margin: 'sm' },
+              { type: 'text', text: '個人で安全に投資するなら25〜30年の長期レンタル契約が現地法で認められた唯一の方法。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '💡 プロのワンポイント', weight: 'bold', size: 'sm', margin: 'md' },
+              { type: 'text', text: '契約書に「30年後にいくらで延長できるか」のルールが書かれていない物件は選んではいけません。', wrap: true, size: 'sm', margin: 'sm', color: '#666666' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'ルール③', weight: 'bold', margin: 'md', color: '#1DB446' },
+              { type: 'text', text: '2026年「建ててはいけないエリア」', weight: 'bold', wrap: true, margin: 'sm' },
+              { type: 'text', text: 'グリーンゾーン（農業・景観保全地域）に違法に建てられたヴィラが当局によって解体・営業停止に追い込まれています。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '物件選びは「安さ」ではなく「合法かどうか」がすべてです。', wrap: true, size: 'sm', margin: 'md', weight: 'bold', color: '#E03131' }
+            ]
+          },
+          footer: consultFooter('合法物件を相談する')
+        }
+      ]
+    }
+  };
+}
+
+// =============================================================
+// バリ島不動産について（運用視点）
+// =============================================================
+function createBaliPropertyMessage() {
+  return {
+    type: 'flex',
+    altText: 'バリ島不動産について',
+    contents: {
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '買った後の「2つの運用ルート」', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ルートA：管理会社に丸投げ', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '集客・清掃・ゲスト対応・税務まで代行。日本にいながら完全不労所得を実現。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ルートB：長期賃貸（マンスリー/年契約）', weight: 'bold', margin: 'md' },
+              { type: 'text', text: 'デジタルノマド・リタイア組に月単位で貸す。手堅く手離れが良い。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🚨 2026年最新規制', weight: 'bold', size: 'lg', color: '#E03131' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'AirbnbやBooking.comの規制が激変', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '宿泊ライセンス（NIB）がない物件は予約サイトから強制削除される仕組みがスタート。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '政府とOTAが完全連携。法律を守っていないモグリのヴィラはネットから姿を消し、予約が一切取れません。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'text', text: '合法ライセンスをクリアできる運用体制が必須の時代に。', wrap: true, size: 'sm', weight: 'bold', margin: 'md', color: '#E03131' }
+            ]
+          },
+          footer: consultFooter('運用リスク診断を受ける')
+        }
+      ]
+    }
+  };
+}
+
+// =============================================================
+// 所有権について
+// =============================================================
+function createOwnershipMessage() {
+  return {
+    type: 'flex',
+    altText: '所有権について',
+    contents: {
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '日本人が使える権利は2つ', weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '①ハック・パカイ（Hak Pakai）', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '使用権。主にジャカルタ高級コンドミニアム向け。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: '期間：最長80年（30+20+30）', size: 'sm', margin: 'sm', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '②ハック・セワ（Hak Sewa）', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '賃借権／リースホールド。バリ島ヴィラ投資の主流。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: '期間：一般的に25〜30年', size: 'sm', margin: 'sm', color: '#666666' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '⚠ 絶対NG：ノミニー契約', weight: 'bold', size: 'lg', color: '#E03131' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '現地人から名義を借りて「所有権」のように振る舞う契約は、インドネシアの法律で完全に違法です。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'リスク', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '• 国による物件没収\n• トラブル時に救済なし\n• お金は一切戻らない', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '安全な権利のもとで投資するのが鉄則です。', wrap: true, size: 'sm', weight: 'bold', margin: 'md' }
+            ]
+          },
+          footer: consultFooter('安全な権利で相談する')
+        }
+      ]
+    }
+  };
+}
+
+// =============================================================
+// 購入方法について（5ステップ）
+// =============================================================
+function createPurchaseMethodMessage() {
+  return {
+    type: 'flex',
+    altText: '購入の5ステップ',
+    contents: {
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '購入5ステップ', weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'text', text: '日本にいながら安全に進められます', wrap: true, size: 'sm', color: '#666666', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'STEP①物件選定・購入申込（LOI）', weight: 'bold', margin: 'md', color: '#1DB446' },
+              { type: 'text', text: '予算・目的に合った物件を選定。意向書を提出し、申込金（価格の1%〜数%）で物件をロック。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'STEP②売買予約契約（PPJB）', weight: 'bold', size: 'lg', margin: 'md', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '物件総額・支払いスケジュール・完成予定日などの詳細を確定。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '🏦 ローン実行タイミング', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '日系金融機関のローン審査・承認を並行で進め、頭金（20〜30%）を支払い。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'STEP③リーガルチェック', weight: 'bold', size: 'lg', margin: 'md', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'プロの腕の見せ所であり一番大切なステップ。', wrap: true, size: 'sm', margin: 'md', weight: 'bold' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '公証人（Notaris）を挟み、地主の権利、担保の有無、グリーンゾーン該当の有無を徹底チェック。', wrap: true, size: 'sm', margin: 'md' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'STEP④本契約（AJB）', weight: 'bold', size: 'lg', margin: 'md', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '政府公認の公証人立ち会いのもと、正式なリースホールド契約書に署名。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '💡 リモート契約も可能', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '日本の公証役場や郵送手続きを組み合わせれば、日本にいながらオンライン契約も可能です。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'STEP⑤残金支払い・引き渡し', weight: 'bold', size: 'lg', margin: 'md', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '融資実行または自己資金で残金支払い → 鍵と権利書があなたへ。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '宿泊ライセンスを持った管理会社と連携し、家賃収入の受け取り（運用）スタート。', wrap: true, size: 'sm', margin: 'md' }
+            ]
+          },
+          footer: consultFooter('購入シミュレーションを依頼')
+        }
+      ]
+    }
+  };
+}
+
+// =============================================================
+// 支払い方法について
+// =============================================================
+function createPaymentMethodMessage() {
+  return {
+    type: 'flex',
+    altText: '支払い方法について',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          { type: 'text', text: '支払い方法は2つ', weight: 'bold', size: 'xl', color: '#1DB446' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '①現金一括払い', weight: 'bold', margin: 'md' },
+          { type: 'text', text: '最もシンプル。手続きが早く、追加コストもなし。', wrap: true, size: 'sm', margin: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '②ローン（融資）', weight: 'bold', margin: 'md' },
+          { type: 'text', text: 'ネットでは「外国人はローン不可」とされがち。\nしかし、日本企業・日系金融機関との「特別な提携ルート」を使えば、日本にいながら融資を引いてバリ島物件を購入できます。', wrap: true, size: 'sm', margin: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '👇 詳しくはローン相談へ', weight: 'bold', size: 'sm', margin: 'md', color: '#1DB446' }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'button',
+            style: 'primary',
+            color: '#1DB446',
+            action: {
+              type: 'postback',
+              label: 'ローン相談に進む',
+              data: RICH_MENU_ACTIONS.LOAN_CONSULT,
+              displayText: 'ローン相談'
+            }
+          }
+        ]
+      }
+    }
+  };
+}
+
+// =============================================================
+// ローン相談
+// =============================================================
+function createLoanConsultMessage() {
+  return {
+    type: 'flex',
+    altText: 'バリ島不動産でローンを組む裏ワザ',
+    contents: {
+      type: 'carousel',
+      contents: [
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '諦めるのは早い', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'text', text: 'バリ島不動産で「ローン」を組む裏ワザ', weight: 'bold', wrap: true, margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ネット情報の常識', weight: 'bold', margin: 'md', color: '#666666' },
+              { type: 'text', text: '「インドネシアでは外国人は100%ローン不可。現金一括のみ」\n→ 一般ルートでは正解', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '実は、日本企業・日系金融機関との「特別な提携ルート」を活用すれば、日本にいながら融資を引いてバリ島物件を購入できます。', wrap: true, size: 'sm', margin: 'md' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'なぜ現地銀行で借りられないか', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '①身元証明ができない', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '現地居住権（ビザ）のない外国人に数千万円の融資はリスク過大。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '②金利が恐ろしく高い', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '現地住宅ローン金利は年10〜12%前後。利益が金利で全て吹き飛びます。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          }
+        },
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🏦 プロの裏ワザ', weight: 'bold', size: 'lg', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '日系金融ネットワークの活用', weight: 'bold', margin: 'md' },
+              { type: 'text', text: 'Jトラスト銀行など日系インドネシア銀行・日本のメガバンク／地方銀行が深く参入。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '✅ 日本にいながら融資審査', weight: 'bold', size: 'sm', margin: 'md' },
+              { type: 'text', text: '日本の資産・信用をベースに審査。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: '✅ 現地より圧倒的に低金利', weight: 'bold', size: 'sm', margin: 'md' },
+              { type: 'text', text: '日本基準の金利でレバレッジ投資が可能。', wrap: true, size: 'sm', margin: 'sm' }
+            ]
+          },
+          footer: consultFooter('資金シミュレーション相談')
+        }
+      ]
+    }
+  };
+}
+
+// =============================================================
+// 社長紹介（プレースホルダー）
+// =============================================================
+function createCEOInfoMessage() {
+  return {
+    type: 'flex',
+    altText: '社長紹介',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          { type: 'text', text: '社長紹介', weight: 'bold', size: 'xl', color: '#1DB446' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '準備中', weight: 'bold', margin: 'md' },
+          { type: 'text', text: 'プロフィール・経歴・メッセージを準備中です。\n近日公開いたしますので、もうしばらくお待ちください。', wrap: true, size: 'sm', margin: 'sm', color: '#666666' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: 'お急ぎの方は個別相談にてお問い合わせください。', wrap: true, size: 'sm', margin: 'md' }
+        ]
+      },
+      footer: consultFooter('個別相談を希望する')
+    }
+  };
+}
+
+// =============================================================
+// 個別相談（ローンや視察など全ての導線の最終ゴール）
+// =============================================================
+function createConsultationMessage() {
+  return {
+    type: 'flex',
+    altText: '個別相談のご案内',
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          { type: 'text', text: '個別相談のご案内', weight: 'bold', size: 'xl', color: '#1DB446' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '読者限定・無料', weight: 'bold', margin: 'md' },
+          { type: 'text', text: '強引なセールスは一切ありません。プロのセカンドオピニオンとしてお気軽にご活用ください。', wrap: true, size: 'sm', margin: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: 'こんな方におすすめ', weight: 'bold', margin: 'md' },
+          { type: 'text', text: '• 今検討中の物件・契約が安全か知りたい\n• 自分の予算で何ができるか相談したい\n• ローンが使える具体的な提携物件を見たい\n• 何から始めたらいいか分からない', wrap: true, size: 'sm', margin: 'sm' }
+        ]
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'button',
+            style: 'primary',
+            color: '#1DB446',
+            action: {
+              type: 'uri',
+              label: '相談フォームへ',
+              uri: config.googleFormUrl || 'https://forms.google.com'
+            }
+          },
+          {
+            type: 'text',
+            text: 'またはこのトークに直接ご質問ください',
+            size: 'xs',
+            color: '#666666',
+            align: 'center',
+            margin: 'sm',
+            wrap: true
+          }
+        ]
+      }
     }
   };
 }
