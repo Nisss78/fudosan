@@ -428,21 +428,21 @@ function createBaliInfoMessage() {
               },
               {
                 type: 'text',
-                text: '約1.6兆ドル（世界16位）\n2050年予測：世界第4位（PwC・IMF）',
+                text: '約1.6兆ドル（世界16位）\n2050年予測：世界トップ5入り（PwC「The World in 2050」レポート）',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm'
               },
               {
                 type: 'text',
-                text: 'バリ州GDP（2023年）',
+                text: 'バリ州GDP（2023年・参考値）',
                 weight: 'bold',
                 margin: 'md',
                 size: 'md'
               },
               {
                 type: 'text',
-                text: '約116兆ルピア（≒約1.1兆円）',
+                text: '約280兆ルピア（≒約2.5兆円規模）※BPS統計',
                 wrap: true,
                 margin: 'sm',
                 size: 'sm'
@@ -1106,13 +1106,13 @@ function createBaliPropertyMessage() {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: '🚨 2026年最新規制', weight: 'bold', size: 'lg', color: '#E03131' },
+              { type: 'text', text: '🚨 短期賃貸規制の強化', weight: 'bold', size: 'lg', color: '#E03131' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'AirbnbやBooking.comの規制が激変', weight: 'bold', margin: 'md' },
-              { type: 'text', text: '宿泊ライセンス（NIB）がない物件は予約サイトから強制削除される仕組みがスタート。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: 'バリ州・インドネシア政府による取り締まり強化', weight: 'bold', margin: 'md' },
+              { type: 'text', text: '宿泊事業ライセンス（NIB/TDUP等）の取得義務化が進み、未取得物件への行政指導・営業停止事例が増加しています。', wrap: true, size: 'sm', margin: 'sm' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '政府とOTAが完全連携。法律を守っていないモグリのヴィラはネットから姿を消し、予約が一切取れません。', wrap: true, size: 'sm', margin: 'md' },
-              { type: 'text', text: '合法ライセンスをクリアできる運用体制が必須の時代に。', wrap: true, size: 'sm', weight: 'bold', margin: 'md', color: '#E03131' }
+              { type: 'text', text: 'ライセンス未取得物件は予約サイト掲載や運用継続が困難になるリスクがあり、合法ライセンスを確保できる運用体制が必須です。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'text', text: '※最新の規制状況は個別相談にて確認させていただきます。', wrap: true, size: 'xs', margin: 'md', color: '#666666' }
             ]
           },
           footer: consultFooter('運用リスク診断を受ける')
@@ -1232,9 +1232,9 @@ function createPurchaseMethodMessage() {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: 'STEP④本契約（AJB）', weight: 'bold', size: 'lg', margin: 'md', color: '#1DB446' },
+              { type: 'text', text: 'STEP④本契約（公正証書リース契約）', weight: 'bold', size: 'lg', margin: 'md', color: '#1DB446' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '政府公認の公証人立ち会いのもと、正式なリースホールド契約書に署名。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'text', text: '政府公認の公証人（Notaris/PPAT）立ち会いのもと、Akta Sewa Menyewa（公正証書化されたリース契約書）に署名。※外国人はリースホールド契約となり、インドネシア人同士のAJB（売買証書）とは別物です。', wrap: true, size: 'sm', margin: 'md' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '💡 リモート契約も可能', weight: 'bold', margin: 'md' },
               { type: 'text', text: '日本の公証役場や郵送手続きを組み合わせれば、日本にいながらオンライン契約も可能です。', wrap: true, size: 'sm', margin: 'sm' }
@@ -1358,7 +1358,7 @@ function createLoanConsultMessage() {
               { type: 'text', text: '🏦 プロの裏ワザ', weight: 'bold', size: 'lg', color: '#1DB446' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '日系金融ネットワークの活用', weight: 'bold', margin: 'md' },
-              { type: 'text', text: 'Jトラスト銀行など日系インドネシア銀行・日本のメガバンク／地方銀行が深く参入。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: 'Jトラスト銀行など日系のインドネシア進出銀行や、当社提携の金融機関を通じた個別融資ルートをご紹介できます。', wrap: true, size: 'sm', margin: 'sm' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '✅ 日本にいながら融資審査', weight: 'bold', size: 'sm', margin: 'md' },
               { type: 'text', text: '日本の資産・信用をベースに審査。', wrap: true, size: 'sm', margin: 'sm' },
