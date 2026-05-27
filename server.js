@@ -1393,19 +1393,16 @@ function createCEOInfoMessage() {
         type: 'box',
         layout: 'vertical',
         contents: [
-          { type: 'text', text: '代表取締役  安達 正之（マサ）', weight: 'bold', size: 'lg', color: '#1DB446' },
-          { type: 'text', text: 'PT ARCADIA INDONESIA PROPERTY', size: 'xs', color: '#666666', margin: 'xs' },
+          { type: 'text', text: '安達 正之（マサ）', weight: 'bold', size: 'lg', color: '#1DB446' },
+          { type: 'text', text: 'ARCADIA / PT ARCADIA INDONESIA PROPERTY', size: 'xs', color: '#666666', margin: 'xs', wrap: true },
           { type: 'separator', margin: 'md' },
           { type: 'text', text: '「結局、最後は人でしょ。」', weight: 'bold', size: 'md', margin: 'md', color: '#1DB446', align: 'center', wrap: true },
           { type: 'separator', margin: 'md' },
           { type: 'text', text: '経歴', weight: 'bold', margin: 'md', size: 'sm' },
-          { type: 'text', text: '大阪生まれ。19歳で渡米しプロサッカーの道へ進むも、前十字靭帯断裂で引退。帰国後にバイオマス発電事業で起業し、25歳で約72億円規模での事業売却を経験。', wrap: true, size: 'sm', margin: 'sm', color: '#333333' },
+          { type: 'text', text: '大阪出身。19歳でLAに渡りプロサッカーの道へ進むも、前十字靭帯断裂により引退。その後バイオマス発電事業で起業し、25歳で約72億円規模の買収を経験。', wrap: true, size: 'sm', margin: 'sm', color: '#333333' },
           { type: 'separator', margin: 'md' },
-          { type: 'text', text: '現在の事業', weight: 'bold', margin: 'md', size: 'sm' },
-          { type: 'text', text: 'インドネシアを拠点に不動産・M&Aを手がける「ARCADIA」を経営。スペイン・ドバイにも事業を展開。バイク事故からの奇跡的な回復経験を通じて「人」の大切さを痛感し、世界中で信頼の輪を広げています。宇宙食開発など社会貢献事業にも従事。', wrap: true, size: 'sm', margin: 'sm', color: '#333333' },
-          { type: 'separator', margin: 'md' },
-          { type: 'text', text: 'バリ島不動産への想い', weight: 'bold', margin: 'md', size: 'sm' },
-          { type: 'text', text: '現地に根を張り、本当に信頼できる仲間とだけ仕事をする。お客様一人ひとりにとって「最後は人でしょ」と思っていただけるパートナーであることが私たちの誇りです。', wrap: true, size: 'sm', margin: 'sm', color: '#333333' }
+          { type: 'text', text: '現在', weight: 'bold', margin: 'md', size: 'sm' },
+          { type: 'text', text: 'インドネシアを拠点に不動産・M&Aを手がける「ARCADIA」を経営。スペイン・ドバイにも事業を展開。バイク事故からの奇跡的な回復経験を通じて「人」の大切さを痛感し、世界中で信頼の輪を広げています。宇宙食開発など社会貢献事業にも従事。', wrap: true, size: 'sm', margin: 'sm', color: '#333333' }
         ]
       },
       footer: {
