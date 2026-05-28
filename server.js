@@ -1548,179 +1548,67 @@ function createInspectionBookingMessage() {
   };
 }
 
-// 提携先企業のメッセージ作成
+// 提携先企業・アンバサダーのメッセージ作成
 function createPartnerCompaniesMessage() {
   return {
     type: 'flex',
-    altText: '提携先企業',
+    altText: '提携先企業・アンバサダー',
     contents: {
       type: 'carousel',
       contents: [
+        // ===== 表紙 =====
         {
           type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/bank-mandiri.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
-          },
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              {
-                type: 'text',
-                text: 'Bank Mandiri',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'インドネシア最大の国営商業銀行',
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '個人・法人向けともに広範なサービスを提供。ATMネットワークは国内最多で、クレジットカード発行やオンラインバンキングも充実しており、利便性が非常に高いです。',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              }
+              { type: 'text', text: '提携先企業・アンバサダー', weight: 'bold', size: 'xl', color: '#1DB446', wrap: true },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ARCADIAは信頼できる金融・開発・人物パートナーと共にバリ島不動産投資をサポートしています。', wrap: true, size: 'sm', margin: 'md' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '🏦 金融パートナー', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
+              { type: 'text', text: 'Jトラスト銀行 / Permata Bank', wrap: true, size: 'sm', margin: 'xs' },
+              { type: 'text', text: '🏗 開発パートナー', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
+              { type: 'text', text: 'Ciputra Development', wrap: true, size: 'sm', margin: 'xs' },
+              { type: 'text', text: '👤 アンバサダー', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
+              { type: 'text', text: '佐藤 彰真（プロサッカー選手）\n石塚 大介（アーティスト）', wrap: true, size: 'sm', margin: 'xs' }
             ]
           }
         },
+        // ===== 銀行① Jトラスト銀行 =====
         {
           type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/bank-bri.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
-          },
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              {
-                type: 'text',
-                text: 'BRI',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'Bank Rakyat Indonesia',
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '零細企業支援に特化し、地方農村部への融資が強み。マイクロファイナンスに定評があり、地方市場で圧倒的な存在感を放つ銀行です。',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              }
+              { type: 'text', text: '🏦 金融パートナー①', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Jトラスト銀行', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'PT Bank JTrust Indonesia Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '日系資本のインドネシア商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '日本のJトラスト株式会社（東証）傘下。インドネシア証券取引所（IDX）に上場する数少ない日系の現地商業銀行で、日本人・日本企業のインドネシア投資・進出支援に強みがあります。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ARCADIAは日系金融ネットワークを通じ、日本にいながら個別融資ルートのご相談が可能です。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
             ]
           }
         },
+        // ===== 銀行② Permata Bank =====
         {
           type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/bank-bni.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
-          },
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              {
-                type: 'text',
-                text: 'BNI',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'Bank Negara Indonesia',
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '主に法人・貿易商社向けの金融を得意とし、輸出入取引や為替サービスが充実。特に海外展開支援に強く、国際業務に精通した企業向けの選択肢として有望です。',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/bank-btn.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
-          },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'BTN',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'Bank Tabungan Negara',
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '住宅ローンにフォーカスした政府系銀行。不動産購入支援に優れており、住宅ローンの手続きや金利面でも配慮された設計となっています。住宅関連の投資やプロジェクトに関与する際には有力な選択肢です。',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              }
+              { type: 'text', text: '🏦 金融パートナー②', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Permata Bank', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'PT Bank Permata Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'インドネシア大手商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'タイのバンコック銀行（Bangkok Bank）が筆頭株主のインドネシア大手商業銀行。リテール・コーポレート両領域で全国300超の支店ネットワークを持ち、高い信頼性とサービス品質を誇ります。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '個人・法人どちらの不動産投資にも対応可能。具体的な提携プログラムは個別相談にて。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
             ]
           }
         },
@@ -1986,6 +1874,49 @@ function createPartnerCompaniesMessage() {
               }
             ]
           }
+        },
+        // ===== アンバサダー① 佐藤彰真 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '👤 アンバサダー①', size: 'xs', color: '#666666' },
+              { type: 'text', text: '佐藤 彰真', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'プロサッカー選手 / 山形県観光大使', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '海外で挑戦し続ける日本人', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '1999年山形県米沢市出身。16歳でドイツ留学を皮切りに、オランダ・モンテネグロ・シンガポール・ラトビア・オーストリア・フィリピンと世界6カ国超でプレー。現在はOne Taguig FC（フィリピン1部）所属。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'スポンサー50社', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
+              { type: 'text', text: '個人スポンサー約50社を抱える「最後までサッカーを続けたい男」として知られ、メディアにも度々登場。目標は2026W杯日本代表として世界一になること。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '「世界で戦う日本人の挑戦」を体現する人物として、ARCADIAの理念に共鳴。', wrap: true, margin: 'md', size: 'xs', color: '#666666', style: 'italic' }
+            ]
+          }
+        },
+        // ===== アンバサダー② 石塚大介 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '👤 アンバサダー②', size: 'xs', color: '#666666' },
+              { type: 'text', text: '石塚 大介', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'アーティスト / 大阪芸術大学卒', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '世界に挑む現代アーティスト', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '1992年奈良県出身。2016年大阪芸術大学芸術学部キャラクター造形学科卒。在学中から発表したギャグマンガ「田中みのるくん」で人気を博し、Instagramフォロワー約15万人。関西の有名FM局にレギュラー出演。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '国際アートシーンへ', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
+              { type: 'text', text: '人生初の海外旅行（北極）を機にアーティストへ転身。山奥のアトリエで自己研鑽を重ね、2026年5月には中国・北京「Beijing Dangdai Art Fair」に作品23点を出展。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '「自分の道を信じて世界に挑む」生き方で、ARCADIAの哲学を共有。', wrap: true, margin: 'md', size: 'xs', color: '#666666', style: 'italic' }
+            ]
+          },
+          footer: consultFooter('個別相談を希望する')
         }
       ]
     }
