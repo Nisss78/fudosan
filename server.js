@@ -1908,64 +1908,93 @@ function createCompanyInfoMessage() {
     type: 'flex',
     altText: '会社概要 - PT ARCADIA INDONESIA PROPERTY',
     contents: {
-      type: 'bubble',
-      hero: {
-        type: 'image',
-        url: `${config.baseUrl}/images/F7981E81-6AF9-4104-9CE7-02EEAFACF93A.jpg?v=${Date.now()}`,
-        size: 'full',
-        aspectRatio: '1:1',
-        aspectMode: 'fit'
-      },
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: '企業概要',
-            weight: 'bold',
-            size: 'xl',
-            color: '#1DB446'
+      type: 'carousel',
+      contents: [
+        // ===== バブル①: 基本情報 =====
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/ceo.jpg?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
           },
-          {
-            type: 'text',
-            text: 'PT ARCADIA INDONESIA PROPERTY',
-            weight: 'bold',
-            margin: 'md',
-            size: 'lg'
-          },
-          {
-            type: 'separator',
-            margin: 'md'
-          },
-          {
-            type: 'text',
-            text: '• 法人番号：02865343679050000\n• 資本金：1億円（100億ルピア）\n• 代表：I KADEK ARTA YASA',
-            wrap: true,
-            margin: 'md',
-            size: 'sm'
-          },
-          {
-            type: 'separator',
-            margin: 'md'
-          },
-          {
-            type: 'text',
-            text: '所在地',
-            weight: 'bold',
-            margin: 'md',
-            size: 'md'
-          },
-          {
-            type: 'text',
-            text: 'JALAN TAMANAN AYU, GANG GIRI ASRI NO.8 RT.00 BENOA KUTA SELATAN KAB BADUNG BALI',
-            wrap: true,
-            margin: 'sm',
-            size: 'sm',
-            color: '#666666'
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '企業概要', weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'text', text: 'PT ARCADIA INDONESIA PROPERTY', weight: 'bold', margin: 'sm', size: 'md', wrap: true },
+              { type: 'separator', margin: 'md' },
+              { type: 'box', layout: 'vertical', spacing: 'sm', margin: 'md', contents: [
+                { type: 'box', layout: 'baseline', spacing: 'sm', contents: [
+                  { type: 'text', text: '法人番号', size: 'sm', color: '#666666', flex: 3 },
+                  { type: 'text', text: '02865343679050000', size: 'sm', flex: 7, wrap: true }
+                ]},
+                { type: 'box', layout: 'baseline', spacing: 'sm', contents: [
+                  { type: 'text', text: '資本金', size: 'sm', color: '#666666', flex: 3 },
+                  { type: 'text', text: '10,000,000,000 IDR\n（約1億円）', size: 'sm', flex: 7, wrap: true }
+                ]},
+                { type: 'box', layout: 'baseline', spacing: 'sm', contents: [
+                  { type: 'text', text: '代表', size: 'sm', color: '#666666', flex: 3 },
+                  { type: 'text', text: 'MASAYUKI ADACHI\n（安達 正之）', size: 'sm', flex: 7, wrap: true, weight: 'bold' }
+                ]},
+                { type: 'box', layout: 'baseline', spacing: 'sm', contents: [
+                  { type: 'text', text: '設立', size: 'sm', color: '#666666', flex: 3 },
+                  { type: 'text', text: '2012年', size: 'sm', flex: 7 }
+                ]}
+              ]}
+            ]
           }
-        ]
-      }
+        },
+        // ===== バブル②: 所在地 + HPリンク =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '所在地', weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '🏢 本社', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'JALAN TAMANAN AYU, GANG GIRI ASRI NO.8 RT.00 BENOA, KUTA SELATAN, KAB BADUNG, BALI', wrap: true, margin: 'sm', size: 'sm', color: '#333333' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '🏬 支店', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'Park23 Creative Hub, Jl. Kediri 3rd Floor, Tuban, Kuta, Badung Regency, Bali 80361', wrap: true, margin: 'sm', size: 'sm', color: '#333333' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'バリ島・バドゥン県を拠点に、日本人投資家のバリ島不動産購入・運用をサポートしています。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+            ]
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
+                action: {
+                  type: 'uri',
+                  label: '公式ホームページを見る',
+                  uri: 'https://arcadia-property-jp.com/company'
+                }
+              },
+              {
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'postback',
+                  label: '個別相談を希望する',
+                  data: 'consultation',
+                  displayText: '個別相談を希望します'
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   };
 }
