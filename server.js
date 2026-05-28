@@ -1379,7 +1379,7 @@ function createLoanConsultMessage() {
 function createCEOInfoMessage() {
   return {
     type: 'flex',
-    altText: '社長紹介 - 安達正之（マサ）',
+    altText: '社長紹介 - 安達正之',
     contents: {
       type: 'bubble',
       hero: {
@@ -1393,7 +1393,7 @@ function createCEOInfoMessage() {
         type: 'box',
         layout: 'vertical',
         contents: [
-          { type: 'text', text: '安達 正之（マサ）', weight: 'bold', size: 'lg', color: '#1DB446' },
+          { type: 'text', text: '安達 正之', weight: 'bold', size: 'lg', color: '#1DB446' },
           { type: 'text', text: 'ARCADIA / PT ARCADIA INDONESIA PROPERTY', size: 'xs', color: '#666666', margin: 'xs', wrap: true },
           { type: 'separator', margin: 'md' },
           { type: 'text', text: '「結局、最後は人でしょ。」', weight: 'bold', size: 'md', margin: 'md', color: '#1DB446', align: 'center', wrap: true },
@@ -1535,29 +1535,16 @@ function createPartnerCompaniesMessage() {
     contents: {
       type: 'carousel',
       contents: [
-        // ===== 表紙 =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '提携先企業・アンバサダー', weight: 'bold', size: 'xl', color: '#1DB446', wrap: true },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'ARCADIAは信頼できる金融・開発・人物パートナーと共にバリ島不動産投資をサポートしています。', wrap: true, size: 'sm', margin: 'md' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '🏦 金融パートナー', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
-              { type: 'text', text: 'Jトラスト銀行 / Permata Bank', wrap: true, size: 'sm', margin: 'xs' },
-              { type: 'text', text: '🏗 開発パートナー', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
-              { type: 'text', text: 'Ciputra Development', wrap: true, size: 'sm', margin: 'xs' },
-              { type: 'text', text: '👤 アンバサダー', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
-              { type: 'text', text: '佐藤 彰真（プロサッカー選手）\n石塚 大介（アーティスト）', wrap: true, size: 'sm', margin: 'xs' }
-            ]
-          }
-        },
         // ===== 銀行① Jトラスト銀行 =====
         {
           type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/jtrust-bank.png?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:5',
+            aspectMode: 'contain'
+          },
           body: {
             type: 'box',
             layout: 'vertical',
@@ -1576,6 +1563,13 @@ function createPartnerCompaniesMessage() {
         // ===== 銀行② Permata Bank =====
         {
           type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/permata-bank.png?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:5',
+            aspectMode: 'contain'
+          },
           body: {
             type: 'box',
             layout: 'vertical',
@@ -1635,6 +1629,13 @@ function createPartnerCompaniesMessage() {
         },
         {
           type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/arcadia-logo.jpg?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '1:1',
+            aspectMode: 'contain'
+          },
           body: {
             type: 'box',
             layout: 'vertical',
@@ -1915,10 +1916,10 @@ function createCompanyInfoMessage() {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/ceo.jpg?v=${Date.now()}`,
+            url: `${config.baseUrl}/images/arcadia-logo.jpg?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
+            aspectRatio: '1:1',
+            aspectMode: 'contain'
           },
           body: {
             type: 'box',
