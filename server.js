@@ -1437,7 +1437,7 @@ function createCEOInfoMessage() {
 }
 
 // =============================================================
-// 個別相談（ローンや視察など全ての導線の最終ゴール）
+// 個別相談（このトークで直接やり取り。視察予約だけは別フォーム）
 // =============================================================
 function createConsultationMessage() {
   return {
@@ -1454,34 +1454,13 @@ function createConsultationMessage() {
           { type: 'text', text: '読者限定・無料', weight: 'bold', margin: 'md' },
           { type: 'text', text: '強引なセールスは一切ありません。プロのセカンドオピニオンとしてお気軽にご活用ください。', wrap: true, size: 'sm', margin: 'sm' },
           { type: 'separator', margin: 'md' },
-          { type: 'text', text: 'こんな方におすすめ', weight: 'bold', margin: 'md' },
-          { type: 'text', text: '• 今検討中の物件・契約が安全か知りたい\n• 自分の予算で何ができるか相談したい\n• ローンが使える具体的な提携物件を見たい\n• 何から始めたらいいか分からない', wrap: true, size: 'sm', margin: 'sm' }
-        ]
-      },
-      footer: {
-        type: 'box',
-        layout: 'vertical',
-        spacing: 'sm',
-        contents: [
-          {
-            type: 'button',
-            style: 'primary',
-            color: '#1DB446',
-            action: {
-              type: 'uri',
-              label: '相談フォームへ',
-              uri: config.googleFormUrl || 'https://forms.google.com'
-            }
-          },
-          {
-            type: 'text',
-            text: 'またはこのトークに直接ご質問ください',
-            size: 'xs',
-            color: '#666666',
-            align: 'center',
-            margin: 'sm',
-            wrap: true
-          }
+          { type: 'text', text: '💬 このトークで直接お話しします', weight: 'bold', size: 'md', margin: 'md', color: '#1DB446' },
+          { type: 'text', text: 'フォーム入力は不要です。気になることをそのままメッセージで送ってください。担当者から直接ご返信します。', wrap: true, size: 'sm', margin: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: 'こんなことから話せます', weight: 'bold', margin: 'md' },
+          { type: 'text', text: '• 今検討中の物件・契約が安全か知りたい\n• 自分の予算で何ができるか相談したい\n• ローンが使える具体的な提携物件を見たい\n• 何から始めたらいいか分からない\n• まずは雑談から', wrap: true, size: 'sm', margin: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '※現地視察をご希望の方は、リッチメニューの「視察予約」から専用フォームへお進みください。', wrap: true, size: 'xs', margin: 'md', color: '#666666' }
         ]
       }
     }
