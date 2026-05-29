@@ -1542,8 +1542,8 @@ function createPartnerCompaniesMessage() {
             type: 'image',
             url: `${config.baseUrl}/images/jtrust-bank.png?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '20:5',
-            aspectMode: 'contain'
+            aspectRatio: '3:1',
+            aspectMode: 'fit'
           },
           body: {
             type: 'box',
@@ -1567,8 +1567,8 @@ function createPartnerCompaniesMessage() {
             type: 'image',
             url: `${config.baseUrl}/images/permata-bank.png?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '20:5',
-            aspectMode: 'contain'
+            aspectRatio: '3:1',
+            aspectMode: 'fit'
           },
           body: {
             type: 'box',
@@ -1634,7 +1634,7 @@ function createPartnerCompaniesMessage() {
             url: `${config.baseUrl}/images/arcadia-logo.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '1:1',
-            aspectMode: 'contain'
+            aspectMode: 'fit'
           },
           body: {
             type: 'box',
@@ -1919,7 +1919,7 @@ function createCompanyInfoMessage() {
             url: `${config.baseUrl}/images/arcadia-logo.jpg?v=${Date.now()}`,
             size: 'full',
             aspectRatio: '1:1',
-            aspectMode: 'contain'
+            aspectMode: 'fit'
           },
           body: {
             type: 'box',
