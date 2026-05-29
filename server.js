@@ -138,7 +138,8 @@ async function handleTextMessage(event) {
     } else if (userMessage.includes('ローン') || userMessage.includes('融資')) {
       replyMessage = createLoanConsultMessage();
     } else if (userMessage.includes('エリア')) {
-      replyMessage = createBaliMapImagemapMessage();
+      // bali-map.png 未配置のため一時的にボタン式に戻す
+      replyMessage = createPropertyListMessage();
     } else if (userMessage.includes('社長')) {
       replyMessage = createCEOInfoMessage();
     }
@@ -238,7 +239,9 @@ async function handlePostback(event) {
 
       // ========== 不動産紹介サブメニュー ==========
       case RICH_MENU_ACTIONS.AREA_INFO:
-        replyMessage = createBaliMapImagemapMessage();
+        // bali-map.png 未配置のため一時的にボタン式に戻す
+        // 画像配置後は createBaliMapImagemapMessage() に戻す
+        replyMessage = createPropertyListMessage();
         break;
 
       case RICH_MENU_ACTIONS.BALI_PROPERTY_INFO:
