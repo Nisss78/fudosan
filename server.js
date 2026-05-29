@@ -1443,7 +1443,7 @@ function createLoanConsultMessage() {
               { type: 'text', text: '🏦 プロの裏ワザ', weight: 'bold', size: 'lg', color: '#1DB446' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '日系金融ネットワークの活用', weight: 'bold', margin: 'md' },
-              { type: 'text', text: 'Permata Bankを始めとする日系・インドネシア大手金融機関や、当社提携の金融機関を通じた個別融資ルートをご紹介できます。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: '提携先「株式会社タカバン」のローン相談窓口や、インドネシア大手商業銀行 CIMB Niaga を始めとする金融ネットワークを通じた個別融資ルートをご紹介できます。', wrap: true, size: 'sm', margin: 'sm' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '✅ 日本にいながら融資審査', weight: 'bold', size: 'sm', margin: 'md' },
               { type: 'text', text: '日本の資産・信用をベースに審査。', wrap: true, size: 'sm', margin: 'sm' },
@@ -1613,6 +1613,7 @@ function createInspectionBookingMessage() {
 }
 
 // 提携先企業・アンバサダーのメッセージ作成
+// 公式: https://arcadia-property-jp.com/partner に準拠
 function createPartnerCompaniesMessage() {
   return {
     type: 'flex',
@@ -1620,46 +1621,66 @@ function createPartnerCompaniesMessage() {
     contents: {
       type: 'carousel',
       contents: [
-        // ===== 銀行 Permata Bank =====
+        // ===== 表紙 =====
         {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/permata-bank.png?v=${Date.now()}`,
+            url: `${config.baseUrl}/images/arcadia-banner.jpg?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '20:13',
+            aspectRatio: '20:5',
             aspectMode: 'fit'
           },
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: '🏦 金融パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: 'Permata Bank', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'PT Bank Permata Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Business Partner', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'ビジネスパートナー', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'インドネシア大手商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: 'タイのバンコック銀行（Bangkok Bank）が筆頭株主のインドネシア大手商業銀行。リテール・コーポレート両領域で全国300超の支店ネットワークを持ち、高い信頼性とサービス品質を誇ります。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'text', text: '私たちの事業を支えるプロジェクトチームをご紹介します。', wrap: true, size: 'sm', margin: 'md' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '個人・法人どちらの不動産投資にも対応可能。具体的な提携プログラムは個別相談にて。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+              { type: 'text', text: '📌 購入前サポート', weight: 'bold', size: 'sm', color: '#1DB446', margin: 'md' },
+              { type: 'text', text: '株式会社タカバン / ウォーターマーク ホテル＆スパ', wrap: true, size: 'xs', margin: 'xs' },
+              { type: 'text', text: '🛠 専門パートナー', weight: 'bold', size: 'sm', color: '#1DB446', margin: 'md' },
+              { type: 'text', text: '法務・デベロッパー・建設・会計・銀行', wrap: true, size: 'xs', margin: 'xs' },
+              { type: 'text', text: '🤝 スポンサー先', weight: 'bold', size: 'sm', color: '#1DB446', margin: 'md' },
+              { type: 'text', text: '福井ブローウィンズ / 佐藤彰真 / 石塚大介', wrap: true, size: 'xs', margin: 'xs' }
             ]
           }
         },
-        // ===== ホテル Watermark Hotel & Spa Bali =====
+        // ===== 購入前サポート① 株式会社タカバン =====
         {
           type: 'bubble',
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: '🏨 ホスピタリティ・パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: 'Watermark Hotel & Spa Bali', weight: 'bold', size: 'lg', color: '#1DB446', margin: 'sm', wrap: true },
-              { type: 'text', text: 'ジンバラン / クドンガナン', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'text', text: '📌 購入前サポート', size: 'xs', color: '#666666' },
+              { type: 'text', text: '提携ローン会社', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: '株式会社タカバン', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'ジャパニーズ・ホスピタリティの4★プレミアムホテル', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: 'ングラ・ライ国際空港から車約10分、ジンバラン・クタへのアクセスも良好。CHSE認証済の143室（71スイート+72スーペリア）、ルーフトッププール、スパ、キッズクラブ完備で家族滞在にも対応する4つ星ホテル。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'text', text: '資金計画・ローン相談の提携先', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '資金計画やローンに関するご相談をお受けできる提携先として、ご紹介しています。専門スタッフがお客様の状況に合わせたご相談に対応し、現地での購入プロセスをより安心して進めていただけます。', wrap: true, margin: 'sm', size: 'sm' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '視察ツアー時の宿泊や、長期滞在型の物件運用ノウハウ提供で連携しています。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+              { type: 'text', text: '初めての海外不動産でも、資金面の不安を軽減しながら検討を進められます。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+            ]
+          }
+        },
+        // ===== 購入前サポート② ウォーターマーク =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '📌 購入前サポート', size: 'xs', color: '#666666' },
+              { type: 'text', text: '提携ホテル', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: 'ウォーターマーク', weight: 'bold', size: 'lg', color: '#1DB446', margin: 'sm', wrap: true },
+              { type: 'text', text: 'ホテル＆スパ バリ ジンバラン', weight: 'bold', size: 'sm', color: '#1DB446', wrap: true },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '事前視察・打ち合わせに最適な提携ホテル', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '空港からのアクセスが良く、落ち着いた環境での滞在や会議利用に適しており、視察前後の移動やスケジュール調整もスムーズ。快適な客室と充実した館内施設で滞在を安心してお過ごしいただけます。', wrap: true, margin: 'sm', size: 'sm' }
             ]
           },
           footer: {
@@ -1679,48 +1700,173 @@ function createPartnerCompaniesMessage() {
             ]
           }
         },
-        // ===== アンバサダー① 佐藤彰真 =====
+        // ===== 専門パートナー① 法務 =====
         {
           type: 'bubble',
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: '👤 アンバサダー①', size: 'xs', color: '#666666' },
-              { type: 'text', text: '佐藤 彰真', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'プロサッカー選手 / 山形県観光大使', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
+              { type: 'text', text: '法務', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: 'HHP Law Firm', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'Baker McKenzie Indonesia', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '海外で挑戦し続ける日本人', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '1999年山形県米沢市出身。16歳でドイツ留学を皮切りに、オランダ・モンテネグロ・シンガポール・ラトビア・オーストリア・フィリピンと世界6カ国超でプレー。現在はOne Taguig FC（フィリピン1部）所属。', wrap: true, margin: 'sm', size: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'スポンサー50社', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
-              { type: 'text', text: '個人スポンサー約50社を抱える「最後までサッカーを続けたい男」として知られ、メディアにも度々登場。目標は2026W杯日本代表として世界一になること。', wrap: true, margin: 'sm', size: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '「世界で戦う日本人の挑戦」を体現する人物として、ARCADIAの理念に共鳴。', wrap: true, margin: 'md', size: 'xs', color: '#666666', style: 'italic' }
+              { type: 'text', text: '世界最大級の法律事務所のインドネシア提携先', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '不動産M&A、外資規制、各種ライセンス取得において豊富な実績を持つ法務パートナー。', wrap: true, margin: 'sm', size: 'sm' }
             ]
           }
         },
-        // ===== アンバサダー② 石塚大介 =====
+        // ===== 専門パートナー② デベロッパー =====
         {
           type: 'bubble',
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: '👤 アンバサダー②', size: 'xs', color: '#666666' },
-              { type: 'text', text: '石塚 大介', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'アーティスト / 大阪芸術大学卒', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'デベロッパー / 不動産コンサル', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: 'Cushman & Wakefield', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'Cushman & Wakefield Indonesia', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '世界に挑む現代アーティスト', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '1992年奈良県出身。2016年大阪芸術大学芸術学部キャラクター造形学科卒。在学中から発表したギャグマンガ「田中みのるくん」で人気を博し、Instagramフォロワー約15万人。関西の有名FM局にレギュラー出演。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'text', text: '世界的不動産サービス会社', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '不動産の価値を見極め、市場の動きを的確に捉える分析力に定評があるグローバル不動産パートナー。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          }
+        },
+        // ===== 専門パートナー③ 建設 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
+              { type: 'text', text: '建設・エンジニアリング', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: 'Wijaya Karya', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'WIKA（インドネシア国営建設会社）', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '国際アートシーンへ', weight: 'bold', margin: 'md', size: 'sm', color: '#1DB446' },
-              { type: 'text', text: '人生初の海外旅行（北極）を機にアーティストへ転身。山奥のアトリエで自己研鑽を重ね、2026年5月には中国・北京「Beijing Dangdai Art Fair」に作品23点を出展。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'text', text: 'インドネシア最大級の建設パートナー', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'インドネシア国営の総合建設会社として、インフラ開発から住宅建設まで幅広い実績を持つ建設パートナー。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          }
+        },
+        // ===== 専門パートナー④ 会計・税務 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
+              { type: 'text', text: '会計・税務', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: 'TaxPrime Indonesia', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
               { type: 'separator', margin: 'md' },
-              { type: 'text', text: '「自分の道を信じて世界に挑む」生き方で、ARCADIAの哲学を共有。', wrap: true, margin: 'md', size: 'xs', color: '#666666', style: 'italic' }
+              { type: 'text', text: '急成長のローカル税務アドバイザリーファーム', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '外国人投資家向けの税務アドバイザリーにおいて、急成長を遂げているインドネシアのローカル会計税務ファーム。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          }
+        },
+        // ===== 専門パートナー⑤ 銀行 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
+              { type: 'text', text: '金融・銀行', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: 'CIMB Niaga', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'PT Bank CIMB Niaga Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'インドネシア大手商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'デベロッパー向けの融資や、富裕層向けローンに豊富な実績を持つインドネシア大手商業銀行。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          }
+        },
+        // ===== スポンサー① 福井ブローウィンズ =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🤝 スポンサー先', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Professional Basketball Team', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: '福井ブローウィンズ', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'B.LEAGUE B2 / 福井県福井市', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '福井県初のプロバスケットボールチーム', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '福井県福井市をホームタウンとする福井県初のプロバスケットボールチーム。ARCADIAは福井ブローウィンズのサポーターとして活動を応援しています。', wrap: true, margin: 'sm', size: 'sm' }
             ]
           },
-          footer: consultFooter('個別相談を希望する')
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'uri',
+                  label: '公式サイトを見る',
+                  uri: 'https://www.fukuiblowinds.com/'
+                }
+              }
+            ]
+          }
+        },
+        // ===== スポンサー② 佐藤彰真 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🤝 スポンサー先', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Professional Footballer (Based in Bali)', size: 'xs', color: '#1DB446', margin: 'xs', wrap: true },
+              { type: 'text', text: '佐藤 彰真', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'Shoma Sato / 山形県観光大使', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '海外で挑戦し続ける日本人', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '山形県米沢市出身のプロサッカー選手。16歳でドイツ留学を皮切りに世界6カ国超でプレー、現在はOne Taguig FC（フィリピン1部）所属。ARCADIAはスポンサーとして継続的にサポートしています。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          }
+        },
+        // ===== スポンサー③ 石塚大介 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🤝 スポンサー先', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Japanese Artist / 漫画家', size: 'xs', color: '#1DB446', margin: 'xs' },
+              { type: 'text', text: '石塚 大介', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'Daisuke Ishizuka / 大阪芸術大学卒', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '世界に挑む現代アーティスト', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '大阪芸術大学在学中より、雑誌やSNSでギャグマンガを発表し人気を博す（Instagramフォロワー約15万人）。現在はより自由な表現を追求しアーティストとしても活動。ARCADIAは創作活動をスポンサーとして応援しています。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'uri',
+                  label: 'Instagram (art_iszk)',
+                  uri: 'https://www.instagram.com/art_iszk/'
+                }
+              },
+              consultFooter('個別相談を希望する').contents[0]
+            ]
+          }
         }
       ]
     }
