@@ -1766,6 +1766,13 @@ function createPartnerCompaniesMessage() {
         // ===== ⑥ 株式会社タカバン =====
         {
           type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/takaban.jpg?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
+          },
           body: {
             type: 'box',
             layout: 'vertical',
