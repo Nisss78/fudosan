@@ -1624,6 +1624,13 @@ function createPartnerCompaniesMessage() {
         // ===== ① CIMB Bank =====
         {
           type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/cimb-niaga.png?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'fit'
+          },
           body: {
             type: 'box',
             layout: 'vertical',
