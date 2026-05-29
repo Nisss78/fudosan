@@ -1542,7 +1542,7 @@ function createPartnerCompaniesMessage() {
             type: 'image',
             url: `${config.baseUrl}/images/jtrust-bank.png?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '3:1',
+            aspectRatio: '20:13',
             aspectMode: 'fit'
           },
           body: {
@@ -1567,7 +1567,7 @@ function createPartnerCompaniesMessage() {
             type: 'image',
             url: `${config.baseUrl}/images/permata-bank.png?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '3:1',
+            aspectRatio: '20:13',
             aspectMode: 'fit'
           },
           body: {
