@@ -9,6 +9,12 @@ const app = express();
 // 静的ファイル（画像など）を提供
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
+// LINE Imagemap用エンドポイント: LINEは {baseUrl}/{size} 形式で取得
+// (size = 240/300/460/700/1040)。全サイズに同じ画像を返す。
+app.get('/imagemap/bali-map/:size', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/images/bali-map.png'));
+});
+
 const lineConfig = {
   channelAccessToken: config.channelAccessToken,
   channelSecret: config.channelSecret
@@ -58,6 +64,20 @@ const AREA_MAPPING = {
   'canggu': 'Canggu',
   'badung': 'Badung',
   'other': 'Other'
+};
+
+// エリアコード → 日本語表示名（地図ピン用）
+const AREA_NAME_JA = {
+  uluwatu: 'ウルワッツ',
+  ungasan: 'ウンガサン',
+  nusadua: 'ヌサドゥア',
+  jimbaran: 'ジンバラン',
+  kuta: 'クタ',
+  seminyak: 'スミニャック',
+  legian: 'レギャン',
+  canggu: 'チャングー',
+  badung: 'バドゥン',
+  other: 'その他'
 };
 
 // Webhookエンドポイント
@@ -118,7 +138,7 @@ async function handleTextMessage(event) {
     } else if (userMessage.includes('ローン') || userMessage.includes('融資')) {
       replyMessage = createLoanConsultMessage();
     } else if (userMessage.includes('エリア')) {
-      replyMessage = createPropertyListMessage();
+      replyMessage = createBaliMapImagemapMessage();
     } else if (userMessage.includes('社長')) {
       replyMessage = createCEOInfoMessage();
     }
@@ -218,7 +238,7 @@ async function handlePostback(event) {
 
       // ========== 不動産紹介サブメニュー ==========
       case RICH_MENU_ACTIONS.AREA_INFO:
-        replyMessage = createPropertyListMessage();
+        replyMessage = createBaliMapImagemapMessage();
         break;
 
       case RICH_MENU_ACTIONS.BALI_PROPERTY_INFO:
@@ -242,10 +262,11 @@ async function handlePostback(event) {
         break;
 
       default:
-        // 地域選択
+        // 地域選択（地図ピンタップ）→ Airtableは引かず、直接相談導線へ
         if (data.startsWith('area=')) {
           const area = data.split('=')[1];
-          replyMessage = await createPropertyDetailMessage(area);
+          const areaJa = AREA_NAME_JA[area] || area;
+          replyMessage = createAreaInterestMessage(areaJa);
         } else if (data === 'consultation' || data === '個別相談') {
           replyMessage = createConsultationMessage();
         } else {
@@ -636,7 +657,71 @@ function createBaliInfoMessage() {
   };
 }
 
-// 不動産一覧のメッセージ作成
+// =============================================================
+// バリ島エリア選択（Imagemap地図 + ピンタップ）
+// =============================================================
+// 画像: public/images/bali-map.png に配置（推奨: 1040×780px / 16:12比）
+// LINE Imagemapは {baseUrl}/{size} 形式で5サイズを参照するため
+// Express側で /imagemap/bali-map/:size ルートを用意し、全サイズ同一画像を返す。
+// ピン座標 (x,y,width,height) は baseSize(1040×780) を基準としたピクセル指定。
+// 実画像に合わせて以下の座標を後で微調整してください。
+function createBaliMapImagemapMessage() {
+  const W = 1040;
+  const H = 780;
+  // 各ピンのタップ範囲。座標は実画像に合わせて要調整。
+  const pin = (x, y, area) => ({
+    type: 'postback',
+    area: { x, y, width: 140, height: 140 },
+    data: `area=${area}`,
+    displayText: `${AREA_NAME_JA[area]}が気になります`
+  });
+  return {
+    type: 'imagemap',
+    baseUrl: `${config.baseUrl}/imagemap/bali-map`,
+    altText: 'バリ島エリアマップ - 気になるエリアのピンをタップしてください',
+    baseSize: { width: W, height: H },
+    actions: [
+      // ↓ 仮配置（実画像に合わせて要調整）
+      pin(420, 80,  'canggu'),    // チャングー（北西）
+      pin(440, 220, 'seminyak'),  // スミニャック
+      pin(450, 320, 'legian'),    // レギャン
+      pin(460, 420, 'kuta'),      // クタ
+      pin(450, 530, 'jimbaran'),  // ジンバラン
+      pin(620, 600, 'nusadua'),   // ヌサドゥア（東南）
+      pin(380, 620, 'ungasan'),   // ウンガサン
+      pin(240, 600, 'uluwatu'),   // ウルワッツ（南西）
+      pin(580, 400, 'badung'),    // バドゥン（中央）
+      pin(820, 80,  'other')      // その他（右上コーナー）
+    ]
+  };
+}
+
+// エリアタップ後の応答：個別相談導線（Airtable連携は廃止）
+function createAreaInterestMessage(areaJa) {
+  return {
+    type: 'flex',
+    altText: `${areaJa}にご興味ありがとうございます`,
+    contents: {
+      type: 'bubble',
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          { type: 'text', text: `🏝 ${areaJa}エリア`, weight: 'bold', size: 'xl', color: '#1DB446' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: 'ご興味をお持ちいただきありがとうございます！', wrap: true, margin: 'md', size: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '💬 このトークで直接ご相談ください', weight: 'bold', size: 'md', margin: 'md', color: '#1DB446' },
+          { type: 'text', text: `${areaJa}でどんな物件をお探しか、ご予算・用途・希望条件などをお気軽にメッセージで送ってください。担当者から直接ご返信いたします。`, wrap: true, margin: 'sm', size: 'sm' },
+          { type: 'separator', margin: 'md' },
+          { type: 'text', text: '例：「3,000万予算で別荘として購入したい」「投資用で月額利回り重視」など、ざっくりで構いません。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+        ]
+      }
+    }
+  };
+}
+
+// 不動産一覧のメッセージ作成（旧UI: 現状は呼ばれていない / 互換のため残置）
 function createPropertyListMessage() {
   return {
     type: 'flex',
