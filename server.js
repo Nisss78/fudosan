@@ -1613,7 +1613,7 @@ function createInspectionBookingMessage() {
 }
 
 // 提携先企業・アンバサダーのメッセージ作成
-// 公式: https://arcadia-property-jp.com/partner に準拠
+// マサさん指定順: CIMB → Permata → 佐藤 → 石塚 → Watermark → タカバン → アルカディア
 function createPartnerCompaniesMessage() {
   return {
     type: 'flex',
@@ -1621,205 +1621,55 @@ function createPartnerCompaniesMessage() {
     contents: {
       type: 'carousel',
       contents: [
-        // ===== 表紙 =====
+        // ===== ① CIMB Bank =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🏦 金融・銀行', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'CIMB Niaga', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'PT Bank CIMB Niaga Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'インドネシア大手商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'デベロッパー向けの融資や、富裕層向けローンに豊富な実績を持つインドネシア大手商業銀行。ARCADIAの不動産投資をしっかりサポートする金融パートナーです。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          }
+        },
+        // ===== ② Permata Bank =====
         {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: `${config.baseUrl}/images/arcadia-banner.jpg?v=${Date.now()}`,
+            url: `${config.baseUrl}/images/permata-bank.png?v=${Date.now()}`,
             size: 'full',
-            aspectRatio: '20:5',
+            aspectRatio: '20:13',
             aspectMode: 'fit'
           },
           body: {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: 'Business Partner', size: 'xs', color: '#666666' },
-              { type: 'text', text: 'ビジネスパートナー', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '私たちの事業を支えるプロジェクトチームをご紹介します。', wrap: true, size: 'sm', margin: 'md' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '📌 購入前サポート', weight: 'bold', size: 'sm', color: '#1DB446', margin: 'md' },
-              { type: 'text', text: '株式会社タカバン / ウォーターマーク ホテル＆スパ', wrap: true, size: 'xs', margin: 'xs' },
-              { type: 'text', text: '🛠 専門パートナー', weight: 'bold', size: 'sm', color: '#1DB446', margin: 'md' },
-              { type: 'text', text: '法務・デベロッパー・建設・会計・銀行', wrap: true, size: 'xs', margin: 'xs' },
-              { type: 'text', text: '🤝 スポンサー先', weight: 'bold', size: 'sm', color: '#1DB446', margin: 'md' },
-              { type: 'text', text: '福井ブローウィンズ / 佐藤彰真 / 石塚大介', wrap: true, size: 'xs', margin: 'xs' }
-            ]
-          }
-        },
-        // ===== 購入前サポート① 株式会社タカバン =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '📌 購入前サポート', size: 'xs', color: '#666666' },
-              { type: 'text', text: '提携ローン会社', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: '株式会社タカバン', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '資金計画・ローン相談の提携先', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '資金計画やローンに関するご相談をお受けできる提携先として、ご紹介しています。専門スタッフがお客様の状況に合わせたご相談に対応し、現地での購入プロセスをより安心して進めていただけます。', wrap: true, margin: 'sm', size: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '初めての海外不動産でも、資金面の不安を軽減しながら検討を進められます。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
-            ]
-          }
-        },
-        // ===== 購入前サポート② ウォーターマーク =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '📌 購入前サポート', size: 'xs', color: '#666666' },
-              { type: 'text', text: '提携ホテル', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: 'ウォーターマーク', weight: 'bold', size: 'lg', color: '#1DB446', margin: 'sm', wrap: true },
-              { type: 'text', text: 'ホテル＆スパ バリ ジンバラン', weight: 'bold', size: 'sm', color: '#1DB446', wrap: true },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '事前視察・打ち合わせに最適な提携ホテル', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '空港からのアクセスが良く、落ち着いた環境での滞在や会議利用に適しており、視察前後の移動やスケジュール調整もスムーズ。快適な客室と充実した館内施設で滞在を安心してお過ごしいただけます。', wrap: true, margin: 'sm', size: 'sm' }
-            ]
-          },
-          footer: {
-            type: 'box',
-            layout: 'vertical',
-            spacing: 'sm',
-            contents: [
-              {
-                type: 'button',
-                style: 'secondary',
-                action: {
-                  type: 'uri',
-                  label: '公式サイトを見る',
-                  uri: 'https://www.watermark-bali.com/'
-                }
-              }
-            ]
-          }
-        },
-        // ===== 専門パートナー① 法務 =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: '法務', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: 'HHP Law Firm', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'Baker McKenzie Indonesia', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '世界最大級の法律事務所のインドネシア提携先', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '不動産M&A、外資規制、各種ライセンス取得において豊富な実績を持つ法務パートナー。', wrap: true, margin: 'sm', size: 'sm' }
-            ]
-          }
-        },
-        // ===== 専門パートナー② デベロッパー =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: 'デベロッパー / 不動産コンサル', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: 'Cushman & Wakefield', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'Cushman & Wakefield Indonesia', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '世界的不動産サービス会社', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '不動産の価値を見極め、市場の動きを的確に捉える分析力に定評があるグローバル不動産パートナー。', wrap: true, margin: 'sm', size: 'sm' }
-            ]
-          }
-        },
-        // ===== 専門パートナー③ 建設 =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: '建設・エンジニアリング', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: 'Wijaya Karya', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'WIKA（インドネシア国営建設会社）', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'インドネシア最大級の建設パートナー', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: 'インドネシア国営の総合建設会社として、インフラ開発から住宅建設まで幅広い実績を持つ建設パートナー。', wrap: true, margin: 'sm', size: 'sm' }
-            ]
-          }
-        },
-        // ===== 専門パートナー④ 会計・税務 =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: '会計・税務', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: 'TaxPrime Indonesia', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '急成長のローカル税務アドバイザリーファーム', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '外国人投資家向けの税務アドバイザリーにおいて、急成長を遂げているインドネシアのローカル会計税務ファーム。', wrap: true, margin: 'sm', size: 'sm' }
-            ]
-          }
-        },
-        // ===== 専門パートナー⑤ 銀行 =====
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🛠 専門パートナー', size: 'xs', color: '#666666' },
-              { type: 'text', text: '金融・銀行', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: 'CIMB Niaga', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'PT Bank CIMB Niaga Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'text', text: '🏦 金融・銀行', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Permata Bank', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'text', text: 'PT Bank Permata Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: 'インドネシア大手商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: 'デベロッパー向けの融資や、富裕層向けローンに豊富な実績を持つインドネシア大手商業銀行。', wrap: true, margin: 'sm', size: 'sm' }
+              { type: 'text', text: 'タイのバンコック銀行が筆頭株主のインドネシア大手商業銀行。リテール・コーポレート両領域で全国300超の支店ネットワークを持ち、高い信頼性とサービス品質を誇ります。', wrap: true, margin: 'sm', size: 'sm' }
             ]
           }
         },
-        // ===== スポンサー① 福井ブローウィンズ =====
+        // ===== ③ 佐藤 彰真（写真付き） =====
         {
           type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🤝 スポンサー先', size: 'xs', color: '#666666' },
-              { type: 'text', text: 'Professional Basketball Team', size: 'xs', color: '#1DB446', margin: 'xs' },
-              { type: 'text', text: '福井ブローウィンズ', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'B.LEAGUE B2 / 福井県福井市', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '福井県初のプロバスケットボールチーム', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '福井県福井市をホームタウンとする福井県初のプロバスケットボールチーム。ARCADIAは福井ブローウィンズのサポーターとして活動を応援しています。', wrap: true, margin: 'sm', size: 'sm' }
-            ]
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/sato.jpg?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
           },
-          footer: {
-            type: 'box',
-            layout: 'vertical',
-            spacing: 'sm',
-            contents: [
-              {
-                type: 'button',
-                style: 'secondary',
-                action: {
-                  type: 'uri',
-                  label: '公式サイトを見る',
-                  uri: 'https://www.fukuiblowinds.com/'
-                }
-              }
-            ]
-          }
-        },
-        // ===== スポンサー② 佐藤彰真 =====
-        {
-          type: 'bubble',
           body: {
             type: 'box',
             layout: 'vertical',
@@ -1834,9 +1684,16 @@ function createPartnerCompaniesMessage() {
             ]
           }
         },
-        // ===== スポンサー③ 石塚大介 =====
+        // ===== ④ 石塚 大介（写真付き） =====
         {
           type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/ishizuka.jpg?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
+          },
           body: {
             type: 'box',
             layout: 'vertical',
@@ -1863,8 +1720,114 @@ function createPartnerCompaniesMessage() {
                   label: 'Instagram (art_iszk)',
                   uri: 'https://www.instagram.com/art_iszk/'
                 }
+              }
+            ]
+          }
+        },
+        // ===== ⑤ ウォーターマークホテル（ロゴ） =====
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/watermark-logo.png?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'fit'
+          },
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🏨 提携ホテル', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'ウォーターマーク', weight: 'bold', size: 'lg', color: '#1DB446', margin: 'sm', wrap: true },
+              { type: 'text', text: 'ホテル＆スパ バリ ジンバラン', weight: 'bold', size: 'sm', color: '#1DB446', wrap: true },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '事前視察・打ち合わせに最適な提携ホテル', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '空港からのアクセスが良く、落ち着いた環境での滞在や会議利用に適しており、視察前後の移動やスケジュール調整もスムーズ。快適な客室と充実した館内施設で滞在を安心してお過ごしいただけます。', wrap: true, margin: 'sm', size: 'sm' }
+            ]
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'uri',
+                  label: '公式サイトを見る',
+                  uri: 'https://www.watermark-bali.com/'
+                }
+              }
+            ]
+          }
+        },
+        // ===== ⑥ 株式会社タカバン =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '📌 提携ローン会社', size: 'xs', color: '#666666' },
+              { type: 'text', text: '株式会社タカバン', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '資金計画・ローン相談の提携先', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '資金計画やローンに関するご相談をお受けできる提携先として、ご紹介しています。専門スタッフがお客様の状況に合わせたご相談に対応し、現地での購入プロセスをより安心して進めていただけます。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '初めての海外不動産でも、資金面の不安を軽減しながら検討を進められます。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+            ]
+          }
+        },
+        // ===== ⑦ アルカディア（HP + 個別相談） =====
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/arcadia-banner.jpg?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:5',
+            aspectMode: 'fit'
+          },
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: 'ARCADIA INDONESIA PROPERTY', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'アルカディア', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '海外不動産投資の安心パートナー', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: '物件見学から契約・管理・売却まで一貫してサポート。現地ネットワークを活かしたマーケティング支援で、インドネシア市場への進出を後押しします。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'まずはお気軽にご相談ください。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+            ]
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'uri',
+                  label: '公式ホームページを見る',
+                  uri: 'https://arcadia-property-jp.com/'
+                }
               },
-              consultFooter('個別相談を希望する').contents[0]
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
+                action: {
+                  type: 'postback',
+                  label: '個別相談を希望する',
+                  data: 'consultation',
+                  displayText: '個別相談を希望します'
+                }
+              }
             ]
           }
         }
