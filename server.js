@@ -1443,7 +1443,7 @@ function createLoanConsultMessage() {
               { type: 'text', text: '🏦 プロの裏ワザ', weight: 'bold', size: 'lg', color: '#1DB446' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '日系金融ネットワークの活用', weight: 'bold', margin: 'md' },
-              { type: 'text', text: 'Jトラスト銀行など日系のインドネシア進出銀行や、当社提携の金融機関を通じた個別融資ルートをご紹介できます。', wrap: true, size: 'sm', margin: 'sm' },
+              { type: 'text', text: 'Permata Bankを始めとする日系・インドネシア大手金融機関や、当社提携の金融機関を通じた個別融資ルートをご紹介できます。', wrap: true, size: 'sm', margin: 'sm' },
               { type: 'separator', margin: 'md' },
               { type: 'text', text: '✅ 日本にいながら融資審査', weight: 'bold', size: 'sm', margin: 'md' },
               { type: 'text', text: '日本の資産・信用をベースに審査。', wrap: true, size: 'sm', margin: 'sm' },
@@ -1620,32 +1620,7 @@ function createPartnerCompaniesMessage() {
     contents: {
       type: 'carousel',
       contents: [
-        // ===== 銀行① Jトラスト銀行 =====
-        {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/jtrust-bank.png?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'fit'
-          },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              { type: 'text', text: '🏦 金融パートナー①', size: 'xs', color: '#666666' },
-              { type: 'text', text: 'Jトラスト銀行', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
-              { type: 'text', text: 'PT Bank JTrust Indonesia Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: '日系資本のインドネシア商業銀行', weight: 'bold', margin: 'md', size: 'sm' },
-              { type: 'text', text: '日本のJトラスト株式会社（東証）傘下。インドネシア証券取引所（IDX）に上場する数少ない日系の現地商業銀行で、日本人・日本企業のインドネシア投資・進出支援に強みがあります。', wrap: true, margin: 'sm', size: 'sm' },
-              { type: 'separator', margin: 'md' },
-              { type: 'text', text: 'ARCADIAは日系金融ネットワークを通じ、日本にいながら個別融資ルートのご相談が可能です。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
-            ]
-          }
-        },
-        // ===== 銀行② Permata Bank =====
+        // ===== 銀行 Permata Bank =====
         {
           type: 'bubble',
           hero: {
@@ -1659,7 +1634,7 @@ function createPartnerCompaniesMessage() {
             type: 'box',
             layout: 'vertical',
             contents: [
-              { type: 'text', text: '🏦 金融パートナー②', size: 'xs', color: '#666666' },
+              { type: 'text', text: '🏦 金融パートナー', size: 'xs', color: '#666666' },
               { type: 'text', text: 'Permata Bank', weight: 'bold', size: 'xl', color: '#1DB446', margin: 'sm' },
               { type: 'text', text: 'PT Bank Permata Tbk', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
               { type: 'separator', margin: 'md' },
@@ -1670,272 +1645,36 @@ function createPartnerCompaniesMessage() {
             ]
           }
         },
+        // ===== ホテル Watermark Hotel & Spa Bali =====
         {
           type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/ciputra.png?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '20:13',
-            aspectMode: 'cover'
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: '🏨 ホスピタリティ・パートナー', size: 'xs', color: '#666666' },
+              { type: 'text', text: 'Watermark Hotel & Spa Bali', weight: 'bold', size: 'lg', color: '#1DB446', margin: 'sm', wrap: true },
+              { type: 'text', text: 'ジンバラン / クドンガナン', wrap: true, margin: 'xs', size: 'xs', color: '#666666' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: 'ジャパニーズ・ホスピタリティの4★プレミアムホテル', weight: 'bold', margin: 'md', size: 'sm' },
+              { type: 'text', text: 'ングラ・ライ国際空港から車約10分、ジンバラン・クタへのアクセスも良好。CHSE認証済の143室（71スイート+72スーペリア）、ルーフトッププール、スパ、キッズクラブ完備で家族滞在にも対応する4つ星ホテル。', wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '視察ツアー時の宿泊や、長期滞在型の物件運用ノウハウ提供で連携しています。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+            ]
           },
-          body: {
+          footer: {
             type: 'box',
             layout: 'vertical',
+            spacing: 'sm',
             contents: [
               {
-                type: 'text',
-                text: 'Ciputra Development',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'インドネシア最大級の総合デベロッパー',
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-                color: '#666666'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '1981年設立、1994年上場。住宅・商業・オフィス・ホテル・ヘルスケア等の総合開発を手がけ、国内33都市で76以上のプロジェクトを展開。「Indonesia\'s Best Real Estate Developer」受賞の実績ある企業です。',
-                wrap: true,
-                margin: 'md',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: `${config.baseUrl}/images/arcadia-logo.jpg?v=${Date.now()}`,
-            size: 'full',
-            aspectRatio: '1:1',
-            aspectMode: 'fit'
-          },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '強み・特色',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '1. 豊富な開発実績',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'インドネシア国内33都市で76以上のプロジェクト（マンション、モール、病院等）',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '2. 巨大な資産規模と安定性',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '土地開発ストック7,000ha超、2024年収益は約625 MUSD、純利益約2.1 TIDR',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '3. 高評価のブランド力',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '海岸リゾート、住宅街から商業拠点まで幅広く、品質と信頼を兼備',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'バリ島開発',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'text',
-                text: 'Ciputra Beach Resort',
-                weight: 'bold',
-                margin: 'md',
-                size: 'lg'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: '立地・規模',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'バリ島タバナン地区の海岸沿い80ha・海岸線1.7km',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: 'コンセプト',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '「luxury beachfront residences」＋持続可能な生活コミュニティ',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '施設構成',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '225邸のヴィラ、クラブハウス、プール、フィットネス、森林デッキなどを完備',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: 'パートナー運営',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '5つ星ホテル運営者（Rosewood）による第一フェーズが36haで展開中',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              }
-            ]
-          }
-        },
-        {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: '提携メリット',
-                weight: 'bold',
-                size: 'xl',
-                color: '#1DB446'
-              },
-              {
-                type: 'separator',
-                margin: 'md'
-              },
-              {
-                type: 'text',
-                text: 'ブランドシナジー',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'シプトラ独自のプレミアムブランドと提携提案により安心・信頼性を確保',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: 'プロジェクトの巨大規模',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '80ha級の海岸沿い大規模開発は他に類を見ず、差別化要素に',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '運営ノウハウと供給力',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: 'Rosewood等運営と、ヴィラからアパートメントまで柔軟な供給形式あり',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
-              },
-              {
-                type: 'text',
-                text: '法務・行政リスクが小さい',
-                weight: 'bold',
-                margin: 'md',
-                size: 'md'
-              },
-              {
-                type: 'text',
-                text: '上場企業としての透明性と政府との繋がりで信頼性が高い',
-                wrap: true,
-                margin: 'sm',
-                size: 'sm'
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'uri',
+                  label: '公式サイトを見る',
+                  uri: 'https://www.watermark-bali.com/'
+                }
               }
             ]
           }
