@@ -80,6 +80,20 @@ const AREA_NAME_JA = {
   other: 'その他'
 };
 
+// エリアコード → 雰囲気画像 + 一言紹介（エリアカード用）
+const AREA_META = {
+  uluwatu:  { img: 'area-uluwatu.jpg',  catch: '断崖絶壁とサーフィンの聖地', desc: '海を見下ろす絶景の高台。ラグジュアリーヴィラとサンセットが魅力で、世界中の富裕層に人気のエリアです。' },
+  ungasan:  { img: 'area-ungasan.jpg',  catch: '静かな高台のプライベートエリア', desc: 'クタ半島の高台に位置し、喧騒から離れた落ち着いた環境。眺望の良いプライベートヴィラ向きのエリアです。' },
+  nusadua:  { img: 'area-nusadua.jpg',  catch: '高級リゾートが集う整備されたビーチ', desc: '5つ星ホテルが立ち並ぶ計画的に整備された安全なリゾートエリア。家族滞在や長期運用に適しています。' },
+  jimbaran: { img: 'area-jimbaran.jpg', catch: 'シーフードと夕陽のビーチ', desc: '空港至近で利便性抜群。ビーチ沿いのシーフードレストランで有名な、観光と生活のバランスが良いエリアです。' },
+  kuta:     { img: 'area-kuta.jpg',     catch: 'バリ観光の中心地', desc: '賑わいとビーチライフの中心。アクセス・商業施設が充実し、短期賃貸の需要が高い定番エリアです。' },
+  seminyak: { img: 'area-seminyak.jpg', catch: 'おしゃれなビーチクラブの街', desc: '洗練されたビーチクラブ・レストラン・ブティックが集まる人気エリア。高級ヴィラ投資の主流地です。' },
+  legian:   { img: 'area-legian.jpg',   catch: 'クタとスミニャックの中間', desc: '賑わいと落ち着きのバランスが良いビーチエリア。利便性を保ちつつ静かに過ごせる人気の立地です。' },
+  canggu:   { img: 'area-canggu.jpg',   catch: '今最も注目の話題エリア', desc: 'デジタルノマド・移住者に絶大な人気。カフェやコワーキングが集まり、賃貸需要が急成長している注目エリアです。' },
+  badung:   { img: 'area-badung.jpg',   catch: 'バリ島南部の中心行政区', desc: '主要観光地を含むバリ島南部の中心エリア。開発が活発で、投資物件の選択肢が豊富です。' },
+  other:    { img: 'area-other.jpg',    catch: 'その他のエリア', desc: 'ウブド・サヌールなど上記以外のエリアもご相談いただけます。ご希望の地域をお気軽にお知らせください。' }
+};
+
 // Webhookエンドポイント
 app.post('/webhook', middleware(lineConfig), async (req, res) => {
   try {
@@ -265,11 +279,10 @@ async function handlePostback(event) {
         break;
 
       default:
-        // 地域選択（地図ピンタップ）→ Airtableは引かず、直接相談導線へ
+        // 地域選択（エリアタップ）→ Airtableは引かず、雰囲気画像＋相談導線へ
         if (data.startsWith('area=')) {
           const area = data.split('=')[1];
-          const areaJa = AREA_NAME_JA[area] || area;
-          replyMessage = createAreaInterestMessage(areaJa);
+          replyMessage = createAreaInterestMessage(area);
         } else if (data === 'consultation' || data === '個別相談') {
           replyMessage = createConsultationMessage();
         } else {
@@ -699,27 +712,73 @@ function createBaliMapImagemapMessage() {
   };
 }
 
-// エリアタップ後の応答：個別相談導線（Airtable連携は廃止）
-function createAreaInterestMessage(areaJa) {
+// エリアタップ後の応答：①雰囲気画像カード ＋ ②相談導線カード（2枚カルーセル）
+// Airtable連携は廃止。物件情報はトーク内で人が直接やり取りする方針。
+function createAreaInterestMessage(area) {
+  const meta = AREA_META[area] || AREA_META.other;
+  const areaJa = AREA_NAME_JA[area] || 'バリ島';
   return {
     type: 'flex',
-    altText: `${areaJa}にご興味ありがとうございます`,
+    altText: `${areaJa}エリアのご紹介`,
     contents: {
-      type: 'bubble',
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          { type: 'text', text: `🏝 ${areaJa}エリア`, weight: 'bold', size: 'xl', color: '#1DB446' },
-          { type: 'separator', margin: 'md' },
-          { type: 'text', text: 'ご興味をお持ちいただきありがとうございます！', wrap: true, margin: 'md', size: 'sm' },
-          { type: 'separator', margin: 'md' },
-          { type: 'text', text: '💬 このトークで直接ご相談ください', weight: 'bold', size: 'md', margin: 'md', color: '#1DB446' },
-          { type: 'text', text: `${areaJa}でどんな物件をお探しか、ご予算・用途・希望条件などをお気軽にメッセージで送ってください。担当者から直接ご返信いたします。`, wrap: true, margin: 'sm', size: 'sm' },
-          { type: 'separator', margin: 'md' },
-          { type: 'text', text: '例：「3,000万予算で別荘として購入したい」「投資用で月額利回り重視」など、ざっくりで構いません。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
-        ]
-      }
+      type: 'carousel',
+      contents: [
+        // ===== カード①: 雰囲気画像 =====
+        {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: `${config.baseUrl}/images/areas/${meta.img}?v=${Date.now()}`,
+            size: 'full',
+            aspectRatio: '20:13',
+            aspectMode: 'cover'
+          },
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: `🏝 ${areaJa}`, weight: 'bold', size: 'xl', color: '#1DB446' },
+              { type: 'text', text: meta.catch, size: 'sm', color: '#666666', margin: 'xs', wrap: true },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: meta.desc, wrap: true, margin: 'md', size: 'sm' }
+            ]
+          }
+        },
+        // ===== カード②: 相談導線 =====
+        {
+          type: 'bubble',
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              { type: 'text', text: `📍 ${areaJa}の物件をお探しですか？`, weight: 'bold', size: 'lg', color: '#1DB446', wrap: true },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '💬 このトークで直接ご相談ください', weight: 'bold', size: 'md', margin: 'md', color: '#1DB446' },
+              { type: 'text', text: `${areaJa}でどんな物件をお探しか、ご予算・用途・希望条件などをお気軽にメッセージで送ってください。担当者から直接ご返信いたします。`, wrap: true, margin: 'sm', size: 'sm' },
+              { type: 'separator', margin: 'md' },
+              { type: 'text', text: '例：「3,000万予算で別荘として購入したい」「投資用で利回り重視」など、ざっくりで構いません。', wrap: true, margin: 'md', size: 'xs', color: '#666666' }
+            ]
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'primary',
+                color: '#1DB446',
+                action: {
+                  type: 'postback',
+                  label: 'この内容で相談する',
+                  data: 'consultation',
+                  displayText: `${areaJa}の物件について相談したいです`
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   };
 }
