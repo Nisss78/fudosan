@@ -80,18 +80,18 @@ const AREA_NAME_JA = {
   other: 'その他'
 };
 
-// エリアコード → 雰囲気画像 + 一言紹介（エリアカード用）
+// エリアコード → 雰囲気画像 + 地図画像 + 一言紹介（エリアカード用）
 const AREA_META = {
-  uluwatu:  { img: 'area-uluwatu.jpg',  catch: '断崖絶壁とサーフィンの聖地', desc: '海を見下ろす絶景の高台。ラグジュアリーヴィラとサンセットが魅力で、世界中の富裕層に人気のエリアです。' },
-  ungasan:  { img: 'area-ungasan.jpg',  catch: '静かな高台のプライベートエリア', desc: 'クタ半島の高台に位置し、喧騒から離れた落ち着いた環境。眺望の良いプライベートヴィラ向きのエリアです。' },
-  nusadua:  { img: 'area-nusadua.jpg',  catch: '高級リゾートが集う整備されたビーチ', desc: '5つ星ホテルが立ち並ぶ計画的に整備された安全なリゾートエリア。家族滞在や長期運用に適しています。' },
-  jimbaran: { img: 'area-jimbaran.jpg', catch: 'シーフードと夕陽のビーチ', desc: '空港至近で利便性抜群。ビーチ沿いのシーフードレストランで有名な、観光と生活のバランスが良いエリアです。' },
-  kuta:     { img: 'area-kuta.jpg',     catch: 'バリ観光の中心地', desc: '賑わいとビーチライフの中心。アクセス・商業施設が充実し、短期賃貸の需要が高い定番エリアです。' },
-  seminyak: { img: 'area-seminyak.jpg', catch: 'おしゃれなビーチクラブの街', desc: '洗練されたビーチクラブ・レストラン・ブティックが集まる人気エリア。高級ヴィラ投資の主流地です。' },
-  legian:   { img: 'area-legian.jpg',   catch: 'クタとスミニャックの中間', desc: '賑わいと落ち着きのバランスが良いビーチエリア。利便性を保ちつつ静かに過ごせる人気の立地です。' },
-  canggu:   { img: 'area-canggu.jpg',   catch: '今最も注目の話題エリア', desc: 'デジタルノマド・移住者に絶大な人気。カフェやコワーキングが集まり、賃貸需要が急成長している注目エリアです。' },
-  badung:   { img: 'area-badung.jpg',   catch: 'バリ島南部の中心行政区', desc: '主要観光地を含むバリ島南部の中心エリア。開発が活発で、投資物件の選択肢が豊富です。' },
-  other:    { img: 'area-other.jpg',    catch: 'その他のエリア', desc: 'ウブド・サヌールなど上記以外のエリアもご相談いただけます。ご希望の地域をお気軽にお知らせください。' }
+  uluwatu:  { img: 'area-uluwatu.jpg',  map: 'map-uluwatu.jpg',  catch: '断崖絶壁とサーフィンの聖地', desc: '海を見下ろす絶景の高台。ラグジュアリーヴィラとサンセットが魅力で、世界中の富裕層に人気のエリアです。' },
+  ungasan:  { img: 'area-ungasan.jpg',  map: 'map-ungasan.jpg',  catch: '静かな高台のプライベートエリア', desc: 'クタ半島の高台に位置し、喧騒から離れた落ち着いた環境。眺望の良いプライベートヴィラ向きのエリアです。' },
+  nusadua:  { img: 'area-nusadua.jpg',  map: 'map-nusadua.jpg',  catch: '高級リゾートが集う整備されたビーチ', desc: '5つ星ホテルが立ち並ぶ計画的に整備された安全なリゾートエリア。家族滞在や長期運用に適しています。' },
+  jimbaran: { img: 'area-jimbaran.jpg', map: 'map-jimbaran.jpg', catch: 'シーフードと夕陽のビーチ', desc: '空港至近で利便性抜群。ビーチ沿いのシーフードレストランで有名な、観光と生活のバランスが良いエリアです。' },
+  kuta:     { img: 'area-kuta.jpg',     map: 'map-kuta.jpg',     catch: 'バリ観光の中心地', desc: '賑わいとビーチライフの中心。アクセス・商業施設が充実し、短期賃貸の需要が高い定番エリアです。' },
+  seminyak: { img: 'area-seminyak.jpg', map: 'map-seminyak.jpg', catch: 'おしゃれなビーチクラブの街', desc: '洗練されたビーチクラブ・レストラン・ブティックが集まる人気エリア。高級ヴィラ投資の主流地です。' },
+  legian:   { img: 'area-legian.jpg',   map: 'map-legian.jpg',   catch: 'クタとスミニャックの中間', desc: '賑わいと落ち着きのバランスが良いビーチエリア。利便性を保ちつつ静かに過ごせる人気の立地です。' },
+  canggu:   { img: 'area-canggu.jpg',   map: 'map-canggu.jpg',   catch: '今最も注目の話題エリア', desc: 'デジタルノマド・移住者に絶大な人気。カフェやコワーキングが集まり、賃貸需要が急成長している注目エリアです。' },
+  badung:   { img: 'area-badung.jpg',   map: 'map-badung.jpg',   catch: 'バリ島南部の中心行政区', desc: '主要観光地を含むバリ島南部の中心エリア。開発が活発で、投資物件の選択肢が豊富です。' },
+  other:    { img: 'area-other.jpg',    map: null,               catch: 'その他のエリア', desc: 'ウブド・サヌールなど上記以外のエリアもご相談いただけます。ご希望の地域をお気軽にお知らせください。' }
 };
 
 // Webhookエンドポイント
@@ -744,9 +744,18 @@ function createAreaInterestMessage(area) {
             ]
           }
         },
-        // ===== カード②: 相談導線 =====
+        // ===== カード②: 地図 + 相談導線 =====
         {
           type: 'bubble',
+          ...(meta.map ? {
+            hero: {
+              type: 'image',
+              url: `${config.baseUrl}/images/areas/${meta.map}?v=${Date.now()}`,
+              size: 'full',
+              aspectRatio: '20:13',
+              aspectMode: 'cover'
+            }
+          } : {}),
           body: {
             type: 'box',
             layout: 'vertical',
