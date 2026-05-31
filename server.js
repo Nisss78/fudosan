@@ -1692,6 +1692,22 @@ function createPartnerCompaniesMessage() {
               { type: 'text', text: '海外で挑戦し続ける日本人', weight: 'bold', margin: 'md', size: 'sm' },
               { type: 'text', text: '山形県米沢市出身のプロサッカー選手。16歳でドイツ留学を皮切りに世界6カ国超でプレー、現在はOne Taguig FC（フィリピン1部）所属。ARCADIAはスポンサーとして継続的にサポートしています。', wrap: true, margin: 'sm', size: 'sm' }
             ]
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'sm',
+            contents: [
+              {
+                type: 'button',
+                style: 'secondary',
+                action: {
+                  type: 'uri',
+                  label: 'Instagram (shomarjr)',
+                  uri: 'https://www.instagram.com/shomarjr/'
+                }
+              }
+            ]
           }
         },
         // ===== ④ 石塚 大介（写真付き） =====
